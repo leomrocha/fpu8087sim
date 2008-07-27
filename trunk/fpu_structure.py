@@ -1,6 +1,7 @@
 #!/usr/bin/env python
  # -*- coding: utf-8 -*-
 
+from datahandling import *
 
 """
 Pin Configuration
@@ -33,7 +34,7 @@ pin[ 40 ]= 'VCC'
 """
 class Pinout:
 	def __init__(self):
-		self.__AD =[0 for i in range(16)] #Líneas de dirección
+		self._AD =[0 for i in range(16)] #Líneas de dirección
 		self.pin=[None for i in range(40)]
 		self.pin[ 1 ]='GND'
 		self.pin[ 2:16 ]= AD[14:0]
@@ -94,47 +95,46 @@ Cada registro tiene correspondencia uno a uno con un registro del data field
 """
 
 class Pila:
-
 	def __init__(self):
-		self.__pst=[] #pila st
-		self.__ptag=[] #pila de tags
+		self._pst=[] #pila st
+		self._ptag=[] #pila de tags
 
 	def push(self, st,tag):
-		if __pst.__len__() <= 8 :
-			__pst.append(st)
-			__ptag.append(tag)
+		if self._pst.__len__() <= 8 :
+			self._pst.append(st)
+			self._ptag.append(tag)
 		else:
 			print "fallo al empujar valor a la pila, demasiados valores"
 			#raise  #excepción
 
 	def push(self, st):
-		if __pst.__len__() <= 8 :
-			__pst.append(st)
-			__ptag.append([0, 0])
+		if self._pst.__len__() <= 8 :
+			self._pst.append(st)
+			self._ptag.append([0, 0])
 		else:
 			print "fallo al empujar valor a la pila, demasiados valores"
 			#raise  #excepción
 
 	def pop(self):
-		return(__pst.pop(),__ptag.pop())
+		return(self._pst.pop(),self._ptag.pop())
 
 	def getI(self,i):
 		try:
-			return(__pst[i],__ptag[i])
+			return(self._pst[i],self._ptag[i])
 		except:
 			return(0,[1,1])
 
 	def setI(self,i,st,tag):
-		__pst[i]=st
-		__ptag[i]=tag
+		self._pst[i]=st
+		self._ptag[i]=tag
 
 	def setI(self,i,st):
-		__pst[i]=st
-		__ptag[i]=[0, 0]
+		self._pst[i]=st
+		self._ptag[i]=[0, 0]
 
 	def delI(self,i):
-		del(__pst[i])
-		del(__ptag[i])
+		del(self._pst[i])
+		del(self._ptag[i])
 	
 
 
@@ -152,47 +152,47 @@ class ControlRegister:
 		self._PM=0 #Precision
 		self._X='X'	  #Reserved
 		self._M=0 #Interrupt Mask
-		self.__PC = [0, 0] #Precition Control
+		self._PC = [0, 0] #Precition Control
 		self._PC0=0 #
 		self._PC1=0 #
-		self.__RC=[0, 0] #Rounding Control
+		self._RC=[0, 0] #Rounding Control
 		self._RC0=0 #
 		self._RC1=0 #
-		self.__IC =[0, 0] #Infinity Control (0=projective, 1= affine)
+		self._IC =[0, 0] #Infinity Control (0=projective, 1= affine)
 		self._IC0 =0
 		self._IC1 =0
 		self._XXX=['X','X','X'] #últimos 3 bits reservados
 
 	def setPC(self,pc):
 		#falta checkear si pc es de dos dígitos y es solo unos y ceros
-		__PC = pc
+		_PC = pc
 
 	def setPC(self,pc0,pc1):
-		__PC[0] =pc0
-		__PC[1] =pc1
+		_PC[0] =pc0
+		_PC[1] =pc1
 
 	def getPC(self):
-		return __PC
+		return _PC
 	
 	def setRC(self,rc):
-		__RC = rc
+		_RC = rc
 
 	def setRC(self,rc0,rc1):
-		__RC[0] =rc0
-		__RC[1] =rc1
+		_RC[0] =rc0
+		_RC[1] =rc1
 
 	def getRC(self):
-		return __RC
+		return _RC
 
 	def setIC(self,ic):
-		__IC = ic
+		_IC = ic
 
 	def setIC(self,ic0,ic1):
-		__IC[0] =ic0
-		__IC[1] =ic1
+		_IC[0] =ic0
+		_IC[1] =ic1
 
 	def getIC(self):
-		return __IC
+		return _IC
 
 
 """
@@ -208,36 +208,53 @@ class StatusRegister:
 		self._PE=0 #Precision
 		self._X='X'	  #Reserved
 		self._IR=0 #Interrupt Request
-		self.__C=[0, 0, 0, 0 ] #Condition Code
+		self._C=[0, 0, 0, 0 ] #Condition Code
 		self._C0=0 #Condition Code
 		self._C1=0 #
 		self._C2=0 #
-		self.__TOP=[0, 0, 0]#Top Of Stack Pointer
+		self._TOP=[0, 0, 0]#Top Of Stack Pointer
 		self._C3=0 #
 		self._B=0 #NEU busy
 
 	def setTOP(self,top):
-		__TOP = top
+		_TOP = top
 
 	def setTOP(self,top0,top1,top2):
-		__TOP[0] = top0
-		__TOP[1] = top1
-		__TOP[2] = top2
+		_TOP[0] = top0
+		_TOP[1] = top1
+		_TOP[2] = top2
 
 	def getTOP(self):
-		return __TOP
+		return _TOP
 
 	def setC(self,c):
-		__C = c
+		_C = c
 
 	def setC(self,c0,c1,c2,c3):
-		__C[0] = c0
-		__C[1] = c1
-		__C[2] = c2
-		__C[3] = c3
+		_C[0] = c0
+		_C[1] = c1
+		_C[2] = c2
+		_C[3] = c3
 
 	def getC(self):
-		return __C
+		return _C
+
+	def decTOP():
+		aux=bin2dec(_TOP)
+		if aux== 0:
+			aux=7
+		else:
+			aux-=1
+		_TOP=dec2bin(aux)
+
+	def incTOP():
+		aux=bin2dec(_TOP)
+		if aux== 7:
+			aux=0
+		else:
+			aux+=1
+		_TOP=dec2bin(aux)
+
 
 """
 Tag Word (16 bits) #listo
@@ -254,5 +271,17 @@ Data Pointer (32 bits)
 """
 Registros necesarios del procesador 8086
 """
+
+class StatusX86:
+	def __init__(self):
+		self._CF=0 
+		self._PF=0 
+		self._AF=0 
+		self._ZF=0 
+		self._SF=0 
+		self._TF=0 
+		self._IF=0 
+		self._DF=0 
+		self._OF=0 
 #Si es llamado como ejecutable, entonces decir que esto es una librería que contiene las estructuras básicas de una fpu 8087 (pilas y registros), mostrar la doc y salir.
 
