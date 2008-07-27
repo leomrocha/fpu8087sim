@@ -35,9 +35,9 @@ pin[ 40 ]= 'VCC'
 class Pinout:
 	def __init__(self):
 		self._AD =[0 for i in range(16)] #Líneas de dirección
-		self.pin=[None for i in range(40)]
-		self.pin[ 1 ]='GND'
-		self.pin[ 2:16 ]= AD[14:0]
+		self._pin=[None for i in range(40)]
+"""		self.pin[ 1 ]='GND'
+		self.pin[ 2:16 ]= _AD[14:0]
 		self.pin[ 17 ]= 'NC'
 		self.pin[ 18 ]= 'NC'
 		self.pin[ 19 ]= 'CLK'
@@ -45,21 +45,21 @@ class Pinout:
 		self.pin[ 21 ]= 'RESET'
 		self.pin[ 22 ]= 'READY'
 		self.pin[ 23 ]= 'BUSY'
-		self.pin[ 24 ]= QS1
-		self.pin[ 25 ]= QS0
-		self.pin[ 26 ]= S0 #neg
-		self.pin[ 27 ]= S1 #neg
-		self.pin[ 28 ]= S2 #neg
+		self.pin[ 24 ]= 'QS1'
+		self.pin[ 25 ]= 'QS0'
+		self.pin[ 26 ]= 'S0' #neg
+		self.pin[ 27 ]= 'S1' #neg
+		self.pin[ 28 ]= 'S2' #neg
 		self.pin[ 29 ]= 'NC'
 		self.pin[ 30 ]= 'NC'
-		self.pin[ 31 ]= RQ/GT0 #neg
-		self.pin[ 32 ]= INT
-		self.pin[ 33 ]= RQ/GT1 #neg
-		self.pin[ 34 ]= BHE #neg
+		self.pin[ 31 ]= 'RQ/GT0' #neg
+		self.pin[ 32 ]= 'INT'
+		self.pin[ 33 ]= 'RQ/GT1' #neg
+		self.pin[ 34 ]= 'BHE' #neg
 		self.pin[ 35 : 38 ]= [0,0,0,0]#S[6:3]
-		self.pin[ 39 ]= AD[15]
+		self.pin[ 39 ]= self._AD[15]
 		self.pin[ 40 ]= 'VCC'
-
+"""
 
 """
 Control Unit (CU)
