@@ -132,6 +132,11 @@ class Pila:
 		__pst[i]=st
 		__ptag[i]=[0, 0]
 
+	def delI(self,i):
+		del(__pst[i])
+		del(__ptag[i])
+	
+
 
 """
 Control Register (16 bits)
@@ -246,6 +251,8 @@ Instruction Pointer (32 bits)
 Data Pointer (32 bits)
 """
 
-
+"""
+Registros necesarios del procesador 8086
+"""
 #Si es llamado como ejecutable, entonces decir que esto es una librería que contiene las estructuras básicas de una fpu 8087 (pilas y registros), mostrar la doc y salir.
 
