@@ -94,11 +94,8 @@ Tag Field
 Cada registro tiene correspondencia uno a uno con un registro del data field
 """
 
-class Pila:
-	def __init__(self):
-		self._pst=[] #pila st
-		self._ptag=[] #pila de tags
 
+"""
 	def push(self, st,tag):
 		if self._pst.__len__() < 8 :
 			self._pst.append(st)
@@ -111,6 +108,30 @@ class Pila:
 		if self._pst.__len__() < 8 :
 			self._pst.append(st)
 			self._ptag.append([0, 0])
+		else:
+			print "fallo al empujar valor a la pila, demasiados valores"
+			#raise  #excepción
+"""
+
+class Pila:
+	def __init__(self):
+		self._pst=[] #pila st
+		self._ptag=[] #pila de tags
+
+	def push(self, *args):
+		assert 1 <= len(args) <= 2
+		if len(args) == 2:
+			st,t = args
+		if len(args) == 2:
+			st,tag = args
+		elif len(args) == 1:
+			st=args[0]
+			tag = [0,0]
+		else:
+			print "Error de argumentos", args
+		if self._pst.__len__() < 8 :
+			self._pst.append(st)
+			self._ptag.append(tag)
 		else:
 			print "fallo al empujar valor a la pila, demasiados valores"
 			#raise  #excepción
