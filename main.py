@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 #import re
-import instruction_set as iset
+#import instruction_set as iset #modificado por el momento
+import reduced_instruction_set as iset
 
 def parse(text):
 	lines = text.splitlines()
