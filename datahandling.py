@@ -61,3 +61,7 @@ def bin2dec(bin):
 		dec+=i*(2**j)
 		j+=1
 	return dec
+
+def f2bin(num):
+	return num
+	
