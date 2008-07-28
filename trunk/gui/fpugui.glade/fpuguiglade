@@ -896,7 +896,7 @@
 	  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 	  <child>
-	    <widget class="GtkTextView" id="textview1">
+	    <widget class="GtkTextView" id="entrada_consola">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
 	      <property name="editable">True</property>
@@ -923,47 +923,60 @@
       </child>
 
       <child>
-	<widget class="GtkHBox" id="hbox1">
+	<widget class="GtkEventBox" id="eventbox1">
 	  <property name="visible">True</property>
-	  <property name="homogeneous">False</property>
-	  <property name="spacing">0</property>
+	  <property name="visible_window">True</property>
+	  <property name="above_child">False</property>
 
 	  <child>
-	    <widget class="GtkButton" id="Ejecutar">
-	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="label" translatable="yes">Ejecutar</property>
-	      <property name="use_underline">True</property>
-	      <property name="relief">GTK_RELIEF_NORMAL</property>
-	      <property name="focus_on_click">True</property>
-	      <signal name="clicked" handler="on_Ejecutar_clicked" last_modification_time="Sun, 27 Jul 2008 22:43:11 GMT"/>
-	    </widget>
-	    <packing>
-	      <property name="padding">0</property>
-	      <property name="expand">False</property>
-	      <property name="fill">False</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkHBox" id="hbox2">
+	    <widget class="GtkHBox" id="hbox1">
 	      <property name="visible">True</property>
 	      <property name="homogeneous">False</property>
 	      <property name="spacing">0</property>
 
 	      <child>
-		<placeholder/>
-	      </child>
-
-	      <child>
-		<widget class="GtkButton" id="Salir">
+		<widget class="GtkButton" id="Ejecutar">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="label" translatable="yes">Salir</property>
+		  <property name="label" translatable="yes">Ejecutar</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
-		  <signal name="destroy" handler="on_Salir_destroy" last_modification_time="Sun, 27 Jul 2008 23:22:54 GMT"/>
+		  <signal name="clicked" handler="on_Ejecutar_clicked" last_modification_time="Sun, 27 Jul 2008 22:43:11 GMT"/>
+		</widget>
+		<packing>
+		  <property name="padding">0</property>
+		  <property name="expand">False</property>
+		  <property name="fill">False</property>
+		</packing>
+	      </child>
+
+	      <child>
+		<widget class="GtkHBox" id="hbox2">
+		  <property name="visible">True</property>
+		  <property name="homogeneous">False</property>
+		  <property name="spacing">0</property>
+
+		  <child>
+		    <placeholder/>
+		  </child>
+
+		  <child>
+		    <widget class="GtkButton" id="Salir">
+		      <property name="visible">True</property>
+		      <property name="can_focus">True</property>
+		      <property name="label" translatable="yes">Salir</property>
+		      <property name="use_underline">True</property>
+		      <property name="relief">GTK_RELIEF_NORMAL</property>
+		      <property name="focus_on_click">True</property>
+		      <signal name="destroy" handler="on_Salir_destroy" last_modification_time="Sun, 27 Jul 2008 23:22:54 GMT"/>
+		    </widget>
+		    <packing>
+		      <property name="padding">0</property>
+		      <property name="expand">False</property>
+		      <property name="fill">False</property>
+		    </packing>
+		  </child>
 		</widget>
 		<packing>
 		  <property name="padding">0</property>
@@ -972,11 +985,6 @@
 		</packing>
 	      </child>
 	    </widget>
-	    <packing>
-	      <property name="padding">0</property>
-	      <property name="expand">False</property>
-	      <property name="fill">False</property>
-	    </packing>
 	  </child>
 	</widget>
 	<packing>

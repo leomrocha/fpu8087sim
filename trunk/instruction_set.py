@@ -21,13 +21,11 @@ underflow = False
 #pag 121
 def F2XM1():
 	pila.push((2**pila.pop()[0] )-1)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
+
 #pag 123
 def FABS():
 	pila.push(abs(pila.pop()[0]))
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
+
 # Operaciones de Adición
 """
 Operaciones de adición
@@ -49,9 +47,9 @@ def FADD(num):
 	#if 32 bits => op de 32 bits
 	#else if 64 bits => op de 64 bits
 	#else, todo mal
+	#aux = pila.pop()[0]
 	pila.push(pila.pop()[0]+num)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
+
 '''
 def FADD(m64real)
 	pass
@@ -62,14 +60,10 @@ def FADD(st0=0,sti=0):
 		#raise()
 	else:
 		pila.setI(0,pila.getI(0)[0]+pila.getI(1)[0])#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
-		if underflow:
-			aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 #FADDP
 def FADDP():
 	pila.setI(1,pila.getI(1)[0]+pila.getI(0)[0]) #pila[1]=pila[1]+pila[0]
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 	uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 	return uesp
 
@@ -82,8 +76,6 @@ def FADDP(sti,st0):
 		pila.setI(1,pila.getI(1)[0]+pila.getI(0)[0])	#pila[1]=pila[1]+pila[0]
 		uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 		#status.incTOP() #TODO, revisar si no hay fallo acá
-		if underflow:
-			aux=status.getC();aux[1]=1;status.setC(); underflow=False
 	return uesp
 
 
@@ -92,8 +84,7 @@ def FIADD(num): #operación entera
 	#else if 64 bits => op de 64 bits
 	#else, todo mal
 	pila.push(pila.pop()[0]+num)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
+
 
 """
 Opcode  Instruction        Description
@@ -115,8 +106,7 @@ def FSUB(num):
 	#else if 64 bits => op de 64 bits
 	#else, todo mal
 	pila.push(pila.pop()[0]-num)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
+
 '''
 def FSUB(m64real)
 	pass
@@ -127,14 +117,10 @@ def FSUB(st0=0,sti=0):
 		#raise()
 	else:
 		pila.setI(0,pila.getI(0)[0]-pila.getI(1)[0])#pila[0] = pila[st0] - pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
-		if underflow:
-			aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 #FSUBP
 def FSUBP():
 	pila.setI(1,pila.getI(1)[0]-pila.getI(0)[0]) #pila[1]=pila[1]-pila[0]
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 	uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 	#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
@@ -148,8 +134,6 @@ def FSUBP(sti,st0):
 		pila.setI(1,pila.getI(1)[0]-pila.getI(0)[0])	#pila[1]=pila[1]-pila[0]
 		uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 		#status.incTOP() #TODO, revisar si no hay fallo acá
-		if underflow:
-			aux=status.getC();aux[1]=1;status.setC(); underflow=False
 	return uesp
 
 
@@ -158,8 +142,6 @@ def FISUB(num): #operación entera
 	#else if 64 bits => op de 64 bits
 	#else, todo mal
 	pila.push(pila.pop()[0]-num)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 """
 Opcode  Instruction         Description
@@ -180,8 +162,6 @@ def FSUBR(num):
 	#else if 64 bits => op de 64 bits
 	#else, todo mal
 	pila.push(num - pila.pop()[0])
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 '''
 def FSUBR(m64real)
 	pass
@@ -192,14 +172,10 @@ def FSUBR(st0=0,sti=0):
 		#raise()
 	else:
 		pila.setI(0,pila.getI(1)[0]-pila.getI(0)[0])#pila[0] = pila[st0] - pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
-		if underflow:
-			aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 #FSUBRP
 def FSUBRR():
 	pila.setI(1,pila.getI(0)[0]-pila.getI(1)[0]) #pila[1]=pila[1]-pila[0]
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 	uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 	#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
@@ -213,8 +189,6 @@ def FSUBRP(sti,st0):
 		pila.setI(1,pila.getI(0)[0]-pila.getI(1)[0])	#pila[1]=pila[1]-pila[0]
 		uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 		#status.incTOP() #TODO, revisar si no hay fallo acá
-		if underflow:
-			aux=status.getC();aux[1]=1;status.setC(); underflow=False
 	return uesp
 
 
@@ -223,8 +197,6 @@ def FISUBR(num): #operación entera
 	#else if 64 bits => op de 64 bits
 	#else, todo mal
 	pila.push(num-pila.pop()[0])
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 #Operaciones de BCD
@@ -233,15 +205,11 @@ def FBLD(bcd): #convertir bcd a real y hacerle push
 	#acá hay que convertirlo
 	#acá se lo empuja
 	pila.push(BCD2dec(bcd))
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 def FBSTP(bcd):
 	uesp=pila.pop()[0]
 	#status.incTOP() #TODO, revisar si no hay fallo acá
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 
@@ -249,8 +217,6 @@ def FBSTP(bcd):
 
 def FCHS():
 	pila.setI(0,-1*pila.getI(0)[0])
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 #Operaciones de Registros (no de pila)
 def FCLEX():
@@ -285,63 +251,48 @@ def FCMOVB(sti):
 	if statusX86._CF:
 		pila.setI(0,pila.getI(sti)[0])
 		pila.delI(sti)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
+
 
 def FCMOVE():
 	if statusX86._ZF:
 		pila.setI(0,pila.getI(sti)[0])
 		pila.delI(sti)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 def FCMOVBE():
 	if statusX86._CF or status._ZF:
 		pila.setI(0,pila.getI(sti)[0])
 		pila.delI(sti)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 def FCMOVU():
 	if statusX86._PF:
 		pila.setI(0,pila.getI(sti)[0])
 		pila.delI(sti)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 def FCMOVNB():
 	if not statusX86._CF:
 		pila.setI(0,pila.getI(sti)[0])
 		pila.delI(sti)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 def FCMOVNE():
 	if not statusX86._ZF:
 		pila.setI(0,pila.getI(sti)[0])
 		pila.delI(sti)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 def FCMOVNBE():
 	if statusX86._CF == 0 and statusX86._ZF == 0:
 		pila.setI(0,pila.getI(sti)[0])
 		pila.delI(sti)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 def FCMOVNU():
 	if not statusX86._PF:
 		pila.setI(0,pila.getI(sti)[0])
 		pila.delI(sti)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 #Operaciones de Comparación
@@ -386,8 +337,6 @@ def FCOMST(sti):
 		c[2]= 1
 		c[3]= 1
 	status.setC(c)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 def FCOM(num):
 	#esto sobrepasa el encapsulamiento de la pila y está a propósito
@@ -453,8 +402,6 @@ def FCOMI(sti):
 		statusX86._CF= 1
 		statusX86._PF= 1
 		statusX86._ZF= 1
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 def FCOMIP(sti):
 	FCOMI(sti)
@@ -517,8 +464,6 @@ def FCOS():
 		caux[2]=0
 		status.setC(caux)
 		pila.push(math.cos(pila.pop()[0]))	
-		if underflow:
-			aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 """
@@ -534,8 +479,6 @@ def FSIN():
 		caux[2]=0
 		status.setC(caux)
 		pila.push(math.sin(pila.pop()[0]))	
-		if underflow:
-			aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 """
@@ -556,8 +499,6 @@ def FSINCOS():
 		pila.push(math.sin(pila.pop()[0]))	
 		pila.push(math.cos(aux))
 		status.decTOP()
-		if underflow:
-			aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 """
@@ -568,8 +509,6 @@ D9 FA  FSQRT       Calculates square root of ST(0) and stores the result in
 
 def FSQRT():
 	pila.push(math.sqrt(pila.pop()[0]))
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 
 def FDECSTP():
@@ -592,18 +531,12 @@ DE /6   FIDIV m16int       Divide ST(0) by m64int and store result in ST(0)
 
 def FDIV(num):
 	pila.setI(0,pila.getI(0)[0]/num)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 def FDIV (sti):
 	pila.setI(0,pila.getI(0)[0]/pila.getI(sti)[0])
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 def FDIV (sti,st0):
 	pila.setI(i,pila.getI(sti)[0]/pila.getI(0)[0])
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 def FDIVP():
 	FDIV(1,0)
@@ -640,18 +573,12 @@ DE /7   FIDIVR m16int       Divide m64int by ST(0) and store result in ST(0)
 
 def FDIVR(num):
 	pila.setI(0,num/pila.getI(0)[0])
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 def FDIVR (sti):
 	pila.setI(0,pila.getI(i)[0]/pila.getI(0)[0])
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 def FDIVR (sti,st0):
 	pila.setI(sti,pila.getI(0)[0]/pila.getI(sti)[0])
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
 
 def FDIVPR():
 	FDIV(1,0)
@@ -712,13 +639,12 @@ D9 C0+i FLD ST(i)   Push ST(i) onto the FPU register stack.
 """
 def FLD(num):
 	pila.push(num)
-	status.incTOP()
+	status.decTOP()
+
 def FLDST(sti): #¿esto es así? no es muy claro en el manual, pag 167
 	pila.push(pila.getI(sti))
 	status.decTOP()
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
-
+ 
 """
 Opcode Instruction Description
 D9 E8  FLD1        Push +1.0 onto the FPU register stack.
@@ -780,7 +706,7 @@ def FIST(dirmem):
 	return uesp
 
 def FISTP(dirmem):
-	uesp = pila.pop(0)[0]
+	uesp = pila.pop()[0]
 	#status.incTOP() #TODO, revisar si no hay fallo acá
 	#acá falta agregar un modelo de memoria RAM para poder cargar el valor donde corresponde
 	
@@ -850,19 +776,13 @@ DE /1   FIMUL m16int       Multiply ST(0) by m16int and store result in ST(0)
 """
 def FMUL(num):
 	pila.setI(0,pila.getI(0)[0]*num)
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
-
+ 
 def FMUL (sti):
 	pila.setI(0,pila.getI(0)[0]*pila.getI(sti)[0])
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
-
+ 
 def FMUL (sti,st0):
 	pila.setI(i,pila.getI(sti)[0]*pila.getI(0)[0])
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
-
+ 
 def FMULP():
 	FMUL(1,0)
 	uesp = pila.pop()[0] #primer pop
@@ -892,9 +812,7 @@ def FPATAN():
 	pila.setI(1,math.atan(pila.getI(1)[0]/pila.getI(0)[0]))
 	uesp=pila.pop()[0]
 	#status.incTOP() #TODO, revisar si no hay fallo acá
-	if underflow:
-		aux=status.getC();aux[1]=1;status.setC(); underflow=False
-
+ 
 """
 Opcode Instruction Description
 D9 F8  FPREM       Replace ST(0) with the remainder obtained from
