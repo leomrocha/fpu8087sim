@@ -243,53 +243,97 @@ class TestPila(unittest.TestCase):
 			self.assertEqual(pila.getI(i)[0],st[i])
 
 
-"""
-class TestStatusRegister(unittest.TestCase):
-	pass
-"""
-"""
-	def setTOP(self,top):
-
-	def setTOP(self,top0,top1,top2):
-
-	def getTOP(self):
-
-	def setC(self,c):
-
-	def setC(self,c0,c1,c2,c3):
-
-	def getC(self):
-
-	def decTOP(self):
-
-	def incTOP(self):
-
-"""
-
 #class TestStatusX86(unittest.TestCase):
 #	pass
 
 class TestControlRegister(unittest.TestCase):
+
+	def test_setPC_1(self):
+		control = ControlRegister()
+		PC =[[0,0],[0,1],[1,0],[1,1]]
+		for pc in PC:
+			control.setPC(pc)
+			self.assertEqual(pc,control._PC)
+
+	def test_setPC_2(self):
+		control = ControlRegister()
+		PC =[[0,0],[0,1],[1,0],[1,1]]
+		for pc in PC:
+			control.setPC(pc[0],pc[1])
+			self.assertEqual(pc,control._PC)
+
+	#asume que setPC() funciona correctamente
+	def getPC(self):
+		control = ControlRegister()
+		PC =[[0,0],[0,1],[1,0],[1,1]]
+		for pc in PC:
+			control.setPC(pc[0],pc[1])
+			self.assertEqual(control.getPC(),pc)
+
+
+	def test_setRC_1(self):
+		control = ControlRegister()
+		RC =[[0,0],[0,1],[1,0],[1,1]]
+		for rc in RC:
+			control.setRC(rc)
+			self.assertEqual(rc,control._RC)
+
+	def test_setRC_2(self):
+		control = ControlRegister()
+		RC =[[0,0],[0,1],[1,0],[1,1]]
+		for rc in RC:
+			control.setRC(rc[0],rc[1])
+			self.assertEqual(rc,control._RC)
+
+	#asume que setRC() funciona correctamente
+	def getRC(self):
+		control = ControlRegister()
+		RC =[[0,0],[0,1],[1,0],[1,1]]
+		for rc in RC:
+			control.setRC(rc[0],rc[1])
+			self.assertEqual(control.getRC(),rc)
+
+
+	def test_setIC_1(self):
+		control = ControlRegister()
+		IC =[[0,0],[0,1],[1,0],[1,1]]
+		for ic in IC:
+			control.setIC(ic)
+			self.assertEqual(ic,control._IC)
+
+	def test_setIC_2(self):
+		control = ControlRegister()
+		IC =[[0,0],[0,1],[1,0],[1,1]]
+		for ic in IC:
+			control.setIC(ic[0],ic[1])
+			self.assertEqual(ic,control._IC)
+
+	#asume que setIC() funciona correctamente
+	def getIC(self):
+		control = ControlRegister()
+		IC =[[0,0],[0,1],[1,0],[1,1]]
+		for ic in IC:
+			control.setIC(rc[0],rc[1])
+			self.assertEqual(control.getIC(),ic)
+
+class TestStatusRegister(unittest.TestCase):
 	pass
 """
-	def setPC(self,pc):
+	def test_setTOP_1(self):
 
-	def setPC(self,pc0,pc1):
+	def test_setTOP_2(self):
 
-	def getPC(self):
-	
-	def setRC(self,rc):
+	def getTOP(self):
 
-	def setRC(self,rc0,rc1):
+	def test_setC_1(self):
 
-	def getRC(self):
+	def test_setC_2(self):
 
-	def setIC(self,ic):
+	def test_getC(self):
 
-	def setIC(self,ic0,ic1):
+	def test_decTOP(self):
 
-	def getIC(self):
-
+	def test_incTOP(self):
 """
 
 
