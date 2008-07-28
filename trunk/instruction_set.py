@@ -47,7 +47,7 @@ DE /0 FIADD m16int Add m16int to ST(0) and store result in ST(0)
 def FADD(self, *args):
 	assert 1 <= len(args) <= 2
 	st0 = args[0]
-	st1 = args[1]
+	sti = args[1]
 	if len(args) == 2:
 		if st0 == sti or (sti != 0 and st0 != 0):
 			print "Error en FADD, st0"
