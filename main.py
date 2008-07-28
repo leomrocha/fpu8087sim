@@ -22,16 +22,26 @@ def parse(text):
 def execute_command(commlista):
 	comm = commlista[0]
 	params = commlista[1:]
+	#probando una nueva manera de hacer las cosas, con una cadena de texto
+	paramline = "("
+	i=0
+	for p in params:
+		if i>0:
+			paramline+=", "
+		paramline+=str(p)
+		i+=1
+	paramline += ")"
+	commline = "iset."+comm + paramline
 	try:
-		iset.__getattribute__(comm)(params)
+		#iset.__getattribute__(comm)(params)
+		#eval(comm)(p1,p2,p3...)
+		exec commline
 	except:
-		print "No existe la función", comm
-		print " los parámetros",params," son incorrectos"
+		#print "No existe la función", comm
+		#print "o los parámetros",params," son incorrectos"
+		print "línea incorrecta:",commline
 
 
-def prueba(arg1,arg2):
-	print arg1
-	print arg2
 #si es llamado como ejecutable
 #Realizar la instanciación de los módulos necesarios
 if __name__ == "__main__":
