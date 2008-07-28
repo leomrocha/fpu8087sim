@@ -48,6 +48,7 @@ def FADD(num):
 	#else if 64 bits => op de 64 bits
 	#else, todo mal
 	#aux = pila.pop()[0]
+	#print "num=", num
 	pila.push(pila.pop()[0]+num)
 
 '''
@@ -59,7 +60,8 @@ def FADD(st0=0,sti=0):
 		print "Error en FADD, st0"
 		#raise()
 	else:
-		 pila.setI(pila.head(), pila.getI(pila.head())[0]+pila.getI(1)[0])#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
+		#print st0,";", sti
+		pila.setI(pila.head(), pila.getI(pila.head())[0]+pila.getI(1)[0])#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
 
 #FADDP
 def FADDP():
