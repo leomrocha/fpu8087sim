@@ -94,25 +94,6 @@ Tag Field
 Cada registro tiene correspondencia uno a uno con un registro del data field
 """
 
-
-"""
-	def push(self, st,tag):
-		if self._pst.__len__() < 8 :
-			self._pst.append(st)
-			self._ptag.append(tag)
-		else:
-			print "fallo al empujar valor a la pila, demasiados valores"
-			#raise  #excepción
-
-	def push(self, st):
-		if self._pst.__len__() < 8 :
-			self._pst.append(st)
-			self._ptag.append([0, 0])
-		else:
-			print "fallo al empujar valor a la pila, demasiados valores"
-			#raise  #excepción
-"""
-
 class Pila:
 	def __init__(self):
 		self._pst=[] #pila st
@@ -121,7 +102,7 @@ class Pila:
 	def push(self, *args):
 		assert 1 <= len(args) <= 2
 		if len(args) == 2:
-			st,t = args
+			st,tag = args
 		if len(args) == 2:
 			st,tag = args
 		elif len(args) == 1:
@@ -129,7 +110,7 @@ class Pila:
 			tag = [0,0]
 		else:
 			print "Error de argumentos", args
-		if self._pst.__len__() < 8 :
+		if len(self._pst) < 8 :
 			self._pst.append(st)
 			self._ptag.append(tag)
 		else:
@@ -143,7 +124,7 @@ class Pila:
 			return(0,[1,1])			
 
 	def getI(self,i):
-		if self._pst.__len__() >= 8 or i<0:
+		if len(self._pst) > 8 or i<0:
 			#print "Valor de índice fuera de la pila"
 			return(0,[1,1])
 		try:
@@ -151,27 +132,33 @@ class Pila:
 		except:
 			return(0,[1,1])
 
-	def setI(self,i,st,tag):
-		if self._pst.__len__() >= 8 or i <0:
+	def setI(self,*args):
+		assert 2 <= len(args) <= 3
+		if len(args) == 3:
+			i,st,tag = args
+		elif len(args) == 2:
+			i,st = args
+			tag = [0,0]
+		elif len(args) == 1:
+			i=args[0]
+			st=0
+			tag = [0,0]
+		else:
+			print "Error de argumentos", args
+		if len(self._pst) > 8 or i <0:
 			#print "Valor de índice fuera de la pila"
 			return(0,[1,1])
 		self._pst[i]=st
 		self._ptag[i]=tag
 
-	def setI(self,i,st):
-		if self._pst.__len__() >= 8 or i <0:
-			#print "Valor de índice fuera de la pila"
-			return(0,[1,1])
-		self._pst[i]=st
-		self._ptag[i]=[0, 0]
-
 	def delI(self,i):
-		if self._pst.__len__() >= 8 or i <0:
-			#print "Valor de índice fuera de la pila"
-			return(0,[1,1])
-		del(self._pst[i])
-		del(self._ptag[i])
-	
+		try:
+			del(self._pst[i])
+			del(self._ptag[i])
+			return True
+		except:
+			return False
+
 	def length(self):
 		return len(self._pst)
 
