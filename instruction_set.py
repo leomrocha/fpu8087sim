@@ -11,6 +11,7 @@ uesp = None #ultimo_elemento_sacado_de_pila
 pila = Pila()
 control = ControlRegister()
 status = StatusRegister()
+
 pinout = Pinout()
 
 statusX86 = StatusX86()
@@ -43,25 +44,26 @@ DE /0 FIADD m16int Add m16int to ST(0) and store result in ST(0)
 """
 
 #FADD
-def FADD(num):
-	#if 32 bits => op de 32 bits
-	#else if 64 bits => op de 64 bits
-	#else, todo mal
-	#aux = pila.pop()[0]
-	#print "num=", num
-	pila.push(pila.pop()[0]+num)
-
-'''
-def FADD(m64real)
-	pass
-'''
-def FADD(st0=0,sti=0):
-	if st0 == sti or (sti != 0 and st0 != 0):
-		print "Error en FADD, st0"
-		#raise()
+def FADD(self, *args):
+	assert 1 <= len(args) <= 2
+	st0 = args[0]
+	st1 = args[1]
+	if len(args) == 2:
+		if st0 == sti or (sti != 0 and st0 != 0):
+			print "Error en FADD, st0"
+			#raise()
+		else:
+			#print st0,";", sti
+			pila.setI(pila.head(), pila.getI(pila.head())[0]+pila.getI(1)[0])#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
+	elif len(args) == 1:
+		#if 32 bits => op de 32 bits
+		#else if 64 bits => op de 64 bits
+		#else, todo mal
+		#aux = pila.pop()[0]
+		#print "num=", num
+		pila.push(pila.pop()[0]+args[0])
 	else:
-		#print st0,";", sti
-		pila.setI(pila.head(), pila.getI(pila.head())[0]+pila.getI(1)[0])#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
+		print "Error de argumentos", args
 
 #FADDP
 def FADDP():

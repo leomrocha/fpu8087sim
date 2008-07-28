@@ -181,43 +181,53 @@ class ControlRegister:
 		self._X='X'	  #Reserved
 		self._M=0 #Interrupt Mask
 		self._PC = [0, 0] #Precition Control
-		self._PC0=0 #
-		self._PC1=0 #
+		self._PC0= self._PC[0] #
+		self._PC1= self._PC[0] #
 		self._RC=[0, 0] #Rounding Control
-		self._RC0=0 #
-		self._RC1=0 #
+		self._RC0=self._RC[0] #
+		self._RC1=self._RC[1] #
 		self._IC =[0, 0] #Infinity Control (0=projective, 1= affine)
-		self._IC0 =0
-		self._IC1 =0
+		self._IC0 =self._IC[0]
+		self._IC1 =self._IC[1]
 		self._XXX=['X','X','X'] #últimos 3 bits reservados
 
-	def setPC(self,pc):
-		#falta checkear si pc es de dos dígitos y es solo unos y ceros
-		_PC = pc
-
-	def setPC(self,pc0,pc1):
-		_PC[0] =pc0
-		_PC[1] =pc1
+	def setPC(self, *args):
+		assert 1 <= len(args) <= 2
+		if len(args) == 2:
+			self._PC[0] =args[0]
+			self._PC[1] =args[1]
+		elif len(args) == 1:
+			self._PC = args[0]
+		else:
+			print "Error de argumentos", args
 
 	def getPC(self):
 		return _PC
 	
-	def setRC(self,rc):
-		_RC = rc
+	def setRC(self, *args):
+		assert 1 <= len(args) <= 2
+		if len(args) == 2:
+			self._RC[0] =args[0]
+			self._RC[1] =args[1]
+		elif len(args) == 1:
+			self._RC = args[0]
+		else:
+			print "Error de argumentos", args
 
-	def setRC(self,rc0,rc1):
-		_RC[0] =rc0
-		_RC[1] =rc1
 
 	def getRC(self):
 		return _RC
 
-	def setIC(self,ic):
-		_IC = ic
+	def setIC(self, *args):
+		assert 1 <= len(args) <= 2
+		if len(args) == 2:
+			self._IC[0] =args[0]
+			self._IC[1] =args[1]
+		elif len(args) == 1:
+			self._IC = args[0]
+		else:
+			print "Error de argumentos", args
 
-	def setIC(self,ic0,ic1):
-		_IC[0] =ic0
-		_IC[1] =ic1
 
 	def getIC(self):
 		return _IC
@@ -244,25 +254,35 @@ class StatusRegister:
 		self._C3=0 #
 		self._B=0 #NEU busy
 
-	def setTOP(self,top):
-		self._TOP = top
+	def setTOP(self,*args):
+		assert 1 <= len(args) <= 3
+		if len(args) == 3:
+			self._TOP[0] = args[0]
+			self._TOP[1] = args[1]
+			self._TOP[2] = args[2]
 
-	def setTOP(self,top0,top1,top2):
-		self._TOP[0] = top0
-		self._TOP[1] = top1
-		self._TOP[2] = top2
+		elif len(args) == 1:
+			self._TOP = args[0]
+		else:
+			print "Error de argumentos", args
 
 	def getTOP(self):
 		return self._TOP
 
-	def setC(self,c):
-		_C = c
+	def setC(self,*args):
+		assert 1 <= len(args) <= 4
+		if len(args) == 4:
+			self._C[0] = args[0]
+			self._C[1] = args[1]
+			self._C[2] = args[2]
+			self._C[3] = args[3]
 
-	def setC(self,c0,c1,c2,c3):
-		_C[0] = c0
-		_C[1] = c1
-		_C[2] = c2
-		_C[3] = c3
+		elif len(args) == 1:
+			self._C = args[0]
+		else:
+			print "Error de argumentos", args
+
+		_C = c
 
 	def getC(self):
 		return _C

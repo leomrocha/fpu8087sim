@@ -52,6 +52,11 @@ class TestFLD(unittest.TestCase):
 class TestFABS(unittest.TestCase):
 	pass
 
+#Test FADD
+class TestFADD(unittest.TestCase):
+	pass
+	#testear 
+
 if __name__ == '__main__':
     unittest.main()
 
