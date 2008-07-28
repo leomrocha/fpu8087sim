@@ -3,11 +3,12 @@
 """
 Casos de prueba de instruction_set.py
 """
+import random
 #módulo de Tests Unitarios
 import unittest
 
 #importa el módulo a testear:
-from instruction_set import *
+from reduced_instruction_set import *
 
 """
 Test FLD
@@ -49,13 +50,28 @@ class TestFLD(unittest.TestCase):
 
 #Test ABS
 #
-class TestFABS(unittest.TestCase):
-	pass
+#class TestFABS(unittest.TestCase):
+#	pass
 
 #Test FADD
 class TestFADD(unittest.TestCase):
-	pass
-	#testear 
+
+	def testFADD_1(self):
+		a = random.random()
+		b = random.random()
+		c = a + b
+		pila.push(a)
+		pila.push(b)
+		FADD(0,1)
+		self.assertEqual(pila._pst[pila.head()],c)
+
+	def testFADD_1(self):
+		a = random.random()
+		b = random.random()
+		c = a + b
+		pila.push(a)
+		FADD(b)
+		self.assertEqual(pila._pst[pila.head()],c)
 
 if __name__ == '__main__':
     unittest.main()
