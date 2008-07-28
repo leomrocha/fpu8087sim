@@ -184,7 +184,19 @@ class TestPila(unittest.TestCase):
 		for i in range (8):
 			#print pila.delI(0)
 			self.assertEqual(True,pila.delI(0))		
-
+	"""
+	Propósito:
+		Observar que el dato que se introduce en la pila mediante
+		la primer forma de realizar Pila.setI() (con 2 argumentos)
+		se corresponda con los datos que se lee de la misma
+	Dependencias:
+		Pila	
+		Considera que Pila.push(*args) funciona correctamente
+	Método:
+		Se crean valores enteros aleatorios y todos los posibles de TAG y se los
+		inserta en la pila
+		Se comprueba que el valor almacenado corresponda con el introducido
+	"""
 	def test_setI_1(self):
 		pila = Pila()
 		st = 0000000
@@ -202,7 +214,19 @@ class TestPila(unittest.TestCase):
 				pila.setI(i,st[i],t)
 				self.assertEqual(pila.getI(i),(st[i],t))
 			i+=1
-
+	"""
+	Propósito:
+		Observar que el dato que se introduce en la pila mediante
+		la segunda forma de realizar Pila.setI() (con 2 argumentos)
+		se corresponda con los datos que se lee de la misma
+	Dependencias:
+		Pila	
+		Considera que Pila.push(*args) funciona correctamente
+	Método:
+		Se crean valores enteros aleatorios y todos los posibles de TAG y se los
+		inserta en la pila
+		Se comprueba que el valor almacenado corresponda con el introducido
+	"""
 	def test_setI_2(self):
 		pila = Pila()
 		st = 0000000
