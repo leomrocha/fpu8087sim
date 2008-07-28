@@ -122,35 +122,40 @@ class Pila:
 			return(0,[1,1])			
 
 	def getI(self,i):
-		if self._pst.__len__() >= 8 :
-			print "Valor de índice fuera de la pila"
-			return False
+		if self._pst.__len__() >= 8 or i<0:
+			#print "Valor de índice fuera de la pila"
+			return(0,[1,1])
 		try:
 			return(self._pst[i],self._ptag[i])
 		except:
 			return(0,[1,1])
 
 	def setI(self,i,st,tag):
-		if self._pst.__len__() >= 8 :
-			print "Valor de índice fuera de la pila"
-			return False
+		if self._pst.__len__() >= 8 or i <0:
+			#print "Valor de índice fuera de la pila"
+			return(0,[1,1])
 		self._pst[i]=st
 		self._ptag[i]=tag
 
 	def setI(self,i,st):
-		if self._pst.__len__() >= 8 :
-			print "Valor de índice fuera de la pila"
-			return False
+		if self._pst.__len__() >= 8 or i <0:
+			#print "Valor de índice fuera de la pila"
+			return(0,[1,1])
 		self._pst[i]=st
 		self._ptag[i]=[0, 0]
 
 	def delI(self,i):
-		if self._pst.__len__() >= 8 :
-			print "Valor de índice fuera de la pila"
-			return False
+		if self._pst.__len__() >= 8 or i <0:
+			#print "Valor de índice fuera de la pila"
+			return(0,[1,1])
 		del(self._pst[i])
 		del(self._ptag[i])
 	
+	def length(self):
+		return len(self._pst)
+
+	def head(self):
+		return (len(self._pst)-1)
 
 
 """

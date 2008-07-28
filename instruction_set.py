@@ -59,11 +59,11 @@ def FADD(st0=0,sti=0):
 		print "Error en FADD, st0"
 		#raise()
 	else:
-		pila.setI(0,pila.getI(0)[0]+pila.getI(1)[0])#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
+		 pila.setI(pila.head(), pila.getI(pila.head())[0]+pila.getI(1)[0])#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
 
 #FADDP
 def FADDP():
-	pila.setI(1,pila.getI(1)[0]+pila.getI(0)[0]) #pila[1]=pila[1]+pila[0]
+	pila.setI(1,pila.getI(1)[0]+ pila.getI(pila.head())[0]) #pila[1]=pila[1]+pila[0]
 	uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 	return uesp
 
@@ -73,7 +73,7 @@ def FADDP(sti,st0):
 		print "Error en FADDP, st0"
 		#raise()
 	else:
-		pila.setI(1,pila.getI(1)[0]+pila.getI(0)[0])	#pila[1]=pila[1]+pila[0]
+		pila.setI(1,pila.getI(1)[0]+ pila.getI(pila.head())[0])	#pila[1]=pila[1]+pila[0]
 		uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 		#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
@@ -116,11 +116,11 @@ def FSUB(st0=0,sti=0):
 		print "Error en FSUB, st0"
 		#raise()
 	else:
-		pila.setI(0,pila.getI(0)[0]-pila.getI(1)[0])#pila[0] = pila[st0] - pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
+		 pila.setI(pila.head(), pila.getI(pila.head())[0]-pila.getI(1)[0])#pila[0] = pila[st0] - pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
 
 #FSUBP
 def FSUBP():
-	pila.setI(1,pila.getI(1)[0]-pila.getI(0)[0]) #pila[1]=pila[1]-pila[0]
+	pila.setI(1,pila.getI(1)[0]- pila.getI(pila.head())[0]) #pila[1]=pila[1]-pila[0]
 	uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 	#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
@@ -131,7 +131,7 @@ def FSUBP(sti,st0):
 		print "Error en FSUBP, st0"
 		#raise()
 	else:
-		pila.setI(1,pila.getI(1)[0]-pila.getI(0)[0])	#pila[1]=pila[1]-pila[0]
+		pila.setI(1,pila.getI(1)[0]- pila.getI(pila.head())[0])	#pila[1]=pila[1]-pila[0]
 		uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 		#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
@@ -171,11 +171,11 @@ def FSUBR(st0=0,sti=0):
 		print "Error en FSUBR, st0"
 		#raise()
 	else:
-		pila.setI(0,pila.getI(1)[0]-pila.getI(0)[0])#pila[0] = pila[st0] - pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
+		 pila.setI(pila.head(),pila.getI(1)[0]- pila.getI(pila.head())[0])#pila[0] = pila[st0] - pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
 
 #FSUBRP
 def FSUBRR():
-	pila.setI(1,pila.getI(0)[0]-pila.getI(1)[0]) #pila[1]=pila[1]-pila[0]
+	pila.setI(1, pila.getI(pila.head())[0]-pila.getI(1)[0]) #pila[1]=pila[1]-pila[0]
 	uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 	#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
@@ -186,7 +186,7 @@ def FSUBRP(sti,st0):
 		print "Error en FSUBRP, st0"
 		#raise()
 	else:
-		pila.setI(1,pila.getI(0)[0]-pila.getI(1)[0])	#pila[1]=pila[1]-pila[0]
+		pila.setI(1, pila.getI(pila.head())[0]-pila.getI(1)[0])	#pila[1]=pila[1]-pila[0]
 		uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 		#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
@@ -216,7 +216,7 @@ def FBSTP(bcd):
 #Operaciones de Signo
 
 def FCHS():
-	pila.setI(0,-1*pila.getI(0)[0])
+	 pila.setI(pila.head(),-1* pila.getI(pila.head())[0])
 
 #Operaciones de Registros (no de pila)
 def FCLEX():
@@ -249,50 +249,50 @@ def FNCLEX():
 
 def FCMOVB(sti):
 	if statusX86._CF:
-		pila.setI(0,pila.getI(sti)[0])
-		pila.delI(sti)
+		 pila.setI(pila.head(), pila.getI(pila.head()-sti)[0])
+		 pila.delI(pila.head()-sti)
 
 
 def FCMOVE():
 	if statusX86._ZF:
-		pila.setI(0,pila.getI(sti)[0])
-		pila.delI(sti)
+		 pila.setI(pila.head(), pila.getI(pila.head()-sti)[0])
+		 pila.delI(pila.head()-sti)
 
 
 def FCMOVBE():
 	if statusX86._CF or status._ZF:
-		pila.setI(0,pila.getI(sti)[0])
-		pila.delI(sti)
+		 pila.setI(pila.head(), pila.getI(pila.head()-sti)[0])
+		 pila.delI(pila.head()-sti)
 
 
 def FCMOVU():
 	if statusX86._PF:
-		pila.setI(0,pila.getI(sti)[0])
-		pila.delI(sti)
+		 pila.setI(pila.head(), pila.getI(pila.head()-sti)[0])
+		 pila.delI(pila.head()-sti)
 
 
 def FCMOVNB():
 	if not statusX86._CF:
-		pila.setI(0,pila.getI(sti)[0])
-		pila.delI(sti)
+		 pila.setI(pila.head(), pila.getI(pila.head()-sti)[0])
+		 pila.delI(pila.head()-sti)
 
 
 def FCMOVNE():
 	if not statusX86._ZF:
-		pila.setI(0,pila.getI(sti)[0])
-		pila.delI(sti)
+		 pila.setI(pila.head(), pila.getI(pila.head()-sti)[0])
+		 pila.delI(pila.head()-sti)
 
 
 def FCMOVNBE():
 	if statusX86._CF == 0 and statusX86._ZF == 0:
-		pila.setI(0,pila.getI(sti)[0])
-		pila.delI(sti)
+		 pila.setI(pila.head(), pila.getI(pila.head()-sti)[0])
+		 pila.delI(pila.head()-sti)
 
 
 def FCMOVNU():
 	if not statusX86._PF:
-		pila.setI(0,pila.getI(sti)[0])
-		pila.delI(sti)
+		 pila.setI(pila.head(), pila.getI(pila.head()-sti)[0])
+		 pila.delI(pila.head()-sti)
 
 
 #Operaciones de Comparación
@@ -320,15 +320,15 @@ def FCOMST(sti):
 	#else if 64 bits => op de 64 bits
 	#else, todo mal
 	c=status.getC()
-	if pila.getI(0)[0] > pila.getI(sti)[0]:
+	if  pila.getI(pila.head())[0] >  pila.getI(pila.head()-sti)[0]:
 		c[0]= 0
 		c[2]= 0
 		c[3]= 0
-	elif pila.getI(0)[0] < pila.getI(sti)[0]:
+	elif  pila.getI(pila.head())[0] <  pila.getI(pila.head()-sti)[0]:
 		c[0]= 1
 		c[2]= 0
 		c[3]= 0
-	elif pila.getI(0)[0] == pila.getI(sti)[0]:
+	elif  pila.getI(pila.head())[0] ==  pila.getI(pila.head()-sti)[0]:
 		c[0]= 0
 		c[2]= 0
 		c[3]= 1
@@ -386,15 +386,15 @@ def FCOMI(sti):
 	#if 32 bits => op de 32 bits
 	#else if 64 bits => op de 64 bits
 	#else, todo mal
-	if pila.getI(0)[0] > pila.getI(sti)[0]:
+	if  pila.getI(pila.head())[0] >  pila.getI(pila.head()-sti)[0]:
 		statusX86._CF= 0
 		statusX86._PF= 0
 		statusX86._ZF= 0
-	elif pila.getI(0)[0] < pila.getI(sti)[0]:
+	elif  pila.getI(pila.head())[0] <  pila.getI(pila.head()-sti)[0]:
 		statusX86._CF= 1
 		statusX86._PF= 0
 		statusX86._ZF= 0
-	elif pila.getI(0)[0] == pila.getI(sti)[0]:
+	elif  pila.getI(pila.head())[0] ==  pila.getI(pila.head()-sti)[0]:
 		statusX86._CF= 0
 		statusX86._PF= 0
 		statusX86._ZF= 1
@@ -457,7 +457,7 @@ def FUCOMPP():
 
 def FCOS():
 	caux = status.getC()
-	if abs(pila.getI(0)[0]) > (2**63):
+	if abs( pila.getI(pila.head())[0]) > (2**63):
 		caux[2]=1
 		status.setC(caux)
 	else:
@@ -472,7 +472,7 @@ D9 FE  FSIN        Replace ST(0) with its sine.
 """
 def FSIN():
 	caux = status.getC()
-	if abs(pila.getI(0)[0]) > (2**63):
+	if abs( pila.getI(pila.head())[0]) > (2**63):
 		caux[2]=1
 		status.setC(caux)
 	else:
@@ -489,7 +489,7 @@ D9 FB  FSINCOS     Compute the sine and cosine of ST(0); replace ST(0) with
 """
 def FSINCOS():
 	caux = status.getC()	
-	aux= pila.getI(0)[0]
+	aux=  pila.getI(pila.head())[0]
 	if abs(aux) > (2**63):
 		caux[2]=1
 		status.setC(caux)
@@ -530,13 +530,13 @@ DE /6   FIDIV m16int       Divide ST(0) by m64int and store result in ST(0)
 """
 
 def FDIV(num):
-	pila.setI(0,pila.getI(0)[0]/num)
+	 pila.setI(pila.head(), pila.getI(pila.head())[0]/num)
 
 def FDIV (sti):
-	pila.setI(0,pila.getI(0)[0]/pila.getI(sti)[0])
+	 pila.setI(pila.head(), pila.getI(pila.head())[0]/ pila.getI(pila.head()-sti)[0])
 
 def FDIV (sti,st0):
-	pila.setI(i,pila.getI(sti)[0]/pila.getI(0)[0])
+	pila.setI(i, pila.getI(pila.head()-sti)[0]/ pila.getI(pila.head())[0])
 
 def FDIVP():
 	FDIV(1,0)
@@ -572,13 +572,13 @@ DE /7   FIDIVR m16int       Divide m64int by ST(0) and store result in ST(0)
 """
 
 def FDIVR(num):
-	pila.setI(0,num/pila.getI(0)[0])
+	 pila.setI(pila.head(),num/ pila.getI(pila.head())[0])
 
 def FDIVR (sti):
-	pila.setI(0,pila.getI(i)[0]/pila.getI(0)[0])
+	 pila.setI(pila.head(),pila.getI(i)[0]/ pila.getI(pila.head())[0])
 
 def FDIVR (sti,st0):
-	pila.setI(sti,pila.getI(0)[0]/pila.getI(sti)[0])
+	 pila.setI(pila.head()-sti, pila.getI(pila.head())[0]/ pila.getI(pila.head()-sti)[0])
 
 def FDIVPR():
 	FDIV(1,0)
@@ -598,7 +598,7 @@ def FIDIVR(num):
 #Operaciones de liberación de cabeza de pila
 
 def FFREE():
-	pila.setI(0,None,[1,1])
+	 pila.setI(pila.head(),None,[1,1])
 
 #Operaciones de comparación de enteros
 """
@@ -642,7 +642,7 @@ def FLD(num):
 	status.decTOP()
 
 def FLDST(sti): #¿esto es así? no es muy claro en el manual, pag 167
-	pila.push(pila.getI(sti))
+	pila.push( pila.getI(pila.head()-sti))
 	status.decTOP()
  
 """
@@ -701,7 +701,7 @@ DB /3  FISTP m32int Store ST(0) in m32int and pop register stack
 DF /7  FISTP m64int Store ST(0) in m64int and pop register stack
 """
 def FIST(dirmem):
-	uesp = pila.getI(0)[0]
+	uesp =  pila.getI(pila.head())[0]
 	#acá falta agregar un modelo de memoria RAM para poder cargar el valor donde corresponde
 	return uesp
 
@@ -723,11 +723,11 @@ DD D8+i FSTP ST(i)   Copy ST(0) to ST(i) and pop register stack
 """
 
 def FST(mreal):
-	uesp=pila.getI(0)[0]
+	uesp= pila.getI(pila.head())[0]
 	return uesp
 	
 def FST_ST(i):
-	pila.setI(1,pila.getI(0)[0],pila.getI(0)[1])
+	pila.setI(1, pila.getI(pila.head())[0], pila.getI(pila.head())[1])
 
 
 def FSTP(mreal):
@@ -775,13 +775,13 @@ DA /1   FIMUL m32int       Multiply ST(0) by m32int and store result in ST(0)
 DE /1   FIMUL m16int       Multiply ST(0) by m16int and store result in ST(0)
 """
 def FMUL(num):
-	pila.setI(0,pila.getI(0)[0]*num)
+	 pila.setI(pila.head(), pila.getI(pila.head())[0]*num)
  
-def FMUL (sti):
-	pila.setI(0,pila.getI(0)[0]*pila.getI(sti)[0])
+def FMUL_ST (sti):
+	 pila.setI(pila.head(), pila.getI(pila.head())[0]* pila.getI(pila.head()-sti)[0])
  
 def FMUL (sti,st0):
-	pila.setI(i,pila.getI(sti)[0]*pila.getI(0)[0])
+	pila.setI(pila.head()-sti, pila.getI(pila.head()-sti)[0]* pila.getI(pila.head())[0])
  
 def FMULP():
 	FMUL(1,0)
@@ -809,7 +809,7 @@ D9 F3  FPATAN      Replace ST(1) with arctan(ST(1)/ST(0)) and pop the register s
 
 """
 def FPATAN():
-	pila.setI(1,math.atan(pila.getI(1)[0]/pila.getI(0)[0]))
+	pila.setI(1,math.atan(pila.getI(1)[0]/ pila.getI(pila.head())[0]))
 	uesp=pila.pop()[0]
 	#status.incTOP() #TODO, revisar si no hay fallo acá
  
@@ -820,7 +820,7 @@ D9 F8  FPREM       Replace ST(0) with the remainder obtained from
 """
 
 def FPREM():
-	pila.setI(0,pila.getI(0)[0]%pila.getI(1)[0])
+	 pila.setI(pila.head(), pila.getI(pila.head())[0]%pila.getI(1)[0])
 	#TODO, setear las variables status._C # pag 182
 
 """
@@ -840,10 +840,10 @@ D9 F2  FPTAN       17-173 Replace ST(0) with its tangent and push 1
 
 def FPTAN():
 	caux=status.getC()
-	if pila.getI(0) < 2**63:
+	if  pila.getI(pila.head()) < 2**63:
 		caux[2]=0
 		status.setC(caux)
-		pila.setI(0,math.tan(pila.getI(0)))
+		pila.setI(pila.head(),math.tan( pila.getI(pila.head())))
 		status.decTOP()
 		FLD1()
 	else:
@@ -944,7 +944,7 @@ D9 FD  FSCALE      Scale ST(0) by ST(1).
 """
 
 def FSCALE():
-	pila.setI(0,pila.getI(0)*(2**pila.getI(1)))
+	 pila.setI(pila.head(), pila.getI(pila.head())*(2**pila.getI(1)))
 	#TODO, set flags
 
 
@@ -980,9 +980,9 @@ def FXCH():
 	FXCH(1)
 
 def FXCH(sti):
-	aux = pila.getI(sti)
-	pila.setI(sti,pila.getI(0)[0],pila.getI(0)[1])
-	pila.setI(0,aux[0],aux[1])
+	aux =  pila.getI(pila.head()-sti)
+	pila.setI(pila.head()-sti, pila.getI(pila.head())[0], pila.getI(pila.head())[1])
+	pila.setI(pila.head(),aux[0],aux[1])
 
 """
 Opcode Instruction Description
@@ -1001,7 +1001,7 @@ D9 F1  FYL2X       Replace ST(1) with (ST(1) ∗ log2ST(0)) and pop the
 """
 
 def FYL2X():
-	pila.setI(1,math.log(pila.getI(0),2))
+	pila.setI(1,math.log( pila.getI(pila.head()),2))
 	uesp=pila.pop()[0]
 	#status.incTOP() #TODO, ver si está bien esto
 	return uesp
@@ -1012,7 +1012,7 @@ D9 F9  FYL2XP1     Replace ST(1) with ST(1) ∗ log2(ST(0) + 1.0) and pop the
                    register stack
 """
 def FYL2X():
-	pila.setI(1,math.log(pila.getI(0),2)+1)
+	pila.setI(1,math.log( pila.getI(pila.head()),2)+1)
 	uesp=pila.pop()[0]
 	#status.incTOP() #TODO, ver si está bien esto
 	return uesp
