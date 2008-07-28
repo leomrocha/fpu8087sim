@@ -100,7 +100,7 @@ class Pila:
 		self._ptag=[] #pila de tags
 
 	def push(self, st,tag):
-		if self._pst.__len__() <= 8 :
+		if self._pst.__len__() < 8 :
 			self._pst.append(st)
 			self._ptag.append(tag)
 		else:
@@ -108,7 +108,7 @@ class Pila:
 			#raise  #excepción
 
 	def push(self, st):
-		if self._pst.__len__() <= 8 :
+		if self._pst.__len__() < 8 :
 			self._pst.append(st)
 			self._ptag.append([0, 0])
 		else:
@@ -116,23 +116,38 @@ class Pila:
 			#raise  #excepción
 
 	def pop(self):
-		return(self._pst.pop(),self._ptag.pop())
+		try:
+			return(self._pst.pop(),self._ptag.pop())
+		except:
+			return(0,[1,1])			
 
 	def getI(self,i):
+		if self._pst.__len__() >= 8 :
+			print "Valor de índice fuera de la pila"
+			return False
 		try:
 			return(self._pst[i],self._ptag[i])
 		except:
 			return(0,[1,1])
 
 	def setI(self,i,st,tag):
+		if self._pst.__len__() >= 8 :
+			print "Valor de índice fuera de la pila"
+			return False
 		self._pst[i]=st
 		self._ptag[i]=tag
 
 	def setI(self,i,st):
+		if self._pst.__len__() >= 8 :
+			print "Valor de índice fuera de la pila"
+			return False
 		self._pst[i]=st
 		self._ptag[i]=[0, 0]
 
 	def delI(self,i):
+		if self._pst.__len__() >= 8 :
+			print "Valor de índice fuera de la pila"
+			return False
 		del(self._pst[i])
 		del(self._ptag[i])
 	
@@ -217,15 +232,15 @@ class StatusRegister:
 		self._B=0 #NEU busy
 
 	def setTOP(self,top):
-		_TOP = top
+		self._TOP = top
 
 	def setTOP(self,top0,top1,top2):
-		_TOP[0] = top0
-		_TOP[1] = top1
-		_TOP[2] = top2
+		self._TOP[0] = top0
+		self._TOP[1] = top1
+		self._TOP[2] = top2
 
 	def getTOP(self):
-		return _TOP
+		return self._TOP
 
 	def setC(self,c):
 		_C = c
@@ -239,21 +254,21 @@ class StatusRegister:
 	def getC(self):
 		return _C
 
-	def decTOP():
-		aux=bin2dec(_TOP)
+	def decTOP(self):
+		aux=bin2dec(self._TOP)
 		if aux== 0:
 			aux=7
 		else:
 			aux-=1
-		_TOP=dec2bin(aux)
+		self._TOP=dec2bin(aux)
 
-	def incTOP():
-		aux=bin2dec(_TOP)
+	def incTOP(self):
+		aux=bin2dec(self._TOP)
 		if aux== 7:
 			aux=0
 		else:
 			aux+=1
-		_TOP=dec2bin(aux)
+		self._TOP=dec2bin(aux)
 
 
 """
