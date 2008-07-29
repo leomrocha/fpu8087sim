@@ -57,12 +57,13 @@ def execute_command(commlista):
 		print "línea incorrecta:",commline
 
 def undo():
+	global uesp_temp, pila_temp, control_temp, status_temp
 	uesp = uesp_temp #ultimo_elemento_sacado_de_pila
-	iset.pila = copy.copy(pila_temp) #copy.deepcopy(pila_temp)
-	iset.control = copy.copy(control_temp) # copy.deepcopy(control_temp)
-	iset.status = copy.copy(status_temp) #copy.deepcopy(status_temp)
-	iset.pinout = copy.copy(pinout_temp) #copy.deepcopy(pinout_temp)
-	iset.statusX86 = copy.copy(statusX86_temp) #copy.deepcopy(statusX86_temp)
+	iset.pila = pila_temp#copy.copy(pila_temp) #copy.deepcopy(pila_temp)
+	iset.control = control_temp#copy.copy(control_temp) # copy.deepcopy(control_temp)
+	iset.status = status_temp#copy.copy(status_temp) #copy.deepcopy(status_temp)
+	#iset.pinout = #copy.copy(pinout_temp) #copy.deepcopy(pinout_temp)
+	#iset.statusX86 = #copy.copy(statusX86_temp) #copy.deepcopy(statusX86_temp)
 
 def rebootFPU():
 	iset.pila = None
@@ -73,6 +74,7 @@ def rebootFPU():
 	iset.statusX86.iniciar()
 
 def saveState():
+	global uesp_temp, pila_temp, control_temp, status_temp
 	#print "Guarda el estado"
 	uesp_temp = uesp #ultimo_elemento_sacado_de_pila
 	pila_temp = copy.deepcopy(iset.pila) #copy.copy(iset.pila) #
@@ -82,12 +84,13 @@ def saveState():
 	statusX86_temp = copy.deepcopy(iset.statusX86) #copy.copy(iset.statusX86) #
 
 def cleanState():
+	global uesp_temp, pila_temp, control_temp, status_temp
 	uesp_temp = None #ultimo_elemento_sacado_de_pila
 	pila_temp = None
 	control_temp = None
 	status_temp = None
-	pinout_temp = None
-	statusX86_temp = None
+	#pinout_temp = None
+	#statusX86_temp = None
 	
 #si es llamado como ejecutable
 #Realizar la instanciación de los módulos necesarios

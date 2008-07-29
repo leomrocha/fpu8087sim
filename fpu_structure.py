@@ -171,6 +171,16 @@ class Pila:
 	def head(self):
 		return (len(self._pst)-1)
 
+	def getRegs(self):
+		return [ self.getI(i) for i in range (8)]
+			
+	def setRegs(self,pilatemp):
+		print pilatemp
+		print "holaaa"
+		for st in pilatemp:
+			print st
+			self.setI(st[0],st[1])
+
 
 """
 Control Register (16 bits)
@@ -243,6 +253,25 @@ class ControlRegister:
 
 	def getRegs(self):
 		return [self._IM, self._DM, self._ZM,self._OM,self._UM,	self._PM,self._X,self._M,self._PC[0], self._PC[1],self._RC[0],self._RC[1],self._IC[0],self._IC[1],self._XX[0],self._XX[1]]
+
+
+	def setRegs(IM,DM,ZM,OM,UM,PM,X0,M,PC0,PC1,RC0,RC1,IC0,IC1,X1,X2):
+		self._IM=IM
+		self._DM=DM
+		self._ZM=ZM
+		self._OM=OM
+		self._UM=UM
+		self._PM=PM
+		self._X=X0
+		self._M=M
+		self._PC[0]=PC0
+		self._PC[1]=PC1
+		self._RC[0]=RC0
+		self._RC[1]=RC1
+		self._IC[0]=IC0
+		self._IC[1]=IC1
+		self._XX[0]=X1
+		self._XX[1]=X2
 
 	def getRegNames(self):
 		return ['IM','DM','ZM','OM','UM','PM','X0','M','PC0','PC1','RC0','RC1','IC0','IC1','X1','X2']
@@ -322,6 +351,24 @@ class StatusRegister:
 	def getRegs(self):
 		return [self._IE, self._DE, self._ZE, self._OE,	self._UE, self._PE,	self._X, self._IR, self._C[0], self._C[1],self._C[2], self._TOP[0], self._TOP[1], self._TOP[2],	self._C[3], self._B]
 
+	def setRegs(IE,DE,ZE,OE,UE,PE,X,IR,C0,C1,C2,TOP0,TOP1,TOP2,C3,B):
+		self._IE=IE
+		self._DE=DE
+		self._ZE=ZE
+		self._OE=OE
+		self._UE=UE
+		self._PE=PE
+		self._X = X
+		self._IR=IR
+		self._C[0]=C0
+		self._C[1]=C1
+		self._C[2]=C2
+		self._TOP[0]=TOP0
+		self._TOP[1]=TOP1
+		self._TOP[2]=TOP2
+		self._C[3]=C3
+		self._B=B
+
 	def getRegNames(self):
 		return ['IE','DE','ZE','OE','UE','PE','X','IR','C0','C1','C2','TOP0','TOP1','TOP2','C3','B']
 
@@ -358,6 +405,17 @@ class StatusX86:
 
 	def getRegs(self):
 		return [self._CF,self._PF,self._AF,self._ZF,self._SF,self._TF,self._IF,self._DF,self._OF ]
+
+	def setRegs(CF,PF,AF,ZF,SF,TF,IF,DF,OF):
+		self._CF= CF
+		self._PF= PF
+		self._AF= AF
+		self._ZF= ZF
+		self._SF= SF
+		self._TF= TF
+		self._IF= IF
+		self._DF= DF
+		self._OF= OF
 
 	def getRegNames(self):
 		return ['CF','PF','DF','AF','ZF','SF','TF','IF','DF','OF']
