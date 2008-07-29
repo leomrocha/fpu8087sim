@@ -1003,9 +1003,9 @@
       <property name="column_spacing">0</property>
 
       <child>
-	<widget class="GtkLabel" id="D_l">
+	<widget class="GtkLabel" id="B_l">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">D</property>
+	  <property name="label" translatable="yes">B</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">False</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1171,7 +1171,7 @@
       </child>
 
       <child>
-	<widget class="GtkEntry" id="D">
+	<widget class="GtkEntry" id="B">
 	  <property name="visible">True</property>
 	  <property name="can_focus">True</property>
 	  <property name="editable">True</property>
