@@ -34,6 +34,9 @@ pin[ 40 ]= 'VCC'
 """
 class Pinout:
 	def __init__(self):
+		self.iniciar()
+
+	def iniciar(self): #iniciar en ...
 		self._AD =[0 for i in range(16)] #Líneas de dirección
 		self._pin=[None for i in range(40)]
 """		self.pin[ 1 ]='GND'
