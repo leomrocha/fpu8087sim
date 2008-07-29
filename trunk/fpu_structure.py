@@ -181,15 +181,15 @@ class ControlRegister:
 		self.iniciar()
 
 	def iniciar(self): #iniciar en 037Fh
-		self._IM=0 #invalid operation
-		self._DM=0 #Denormalized Operand
-		self._ZM=0 #Zero Divide
-		self._OM=0 #Overflow
-		self._UM=0 #Underflow
-		self._PM=0 #Precision
-		self._X=0	  #Reserved
+		self._IM=1 #invalid operation
+		self._DM=1 #Denormalized Operand
+		self._ZM=1 #Zero Divide
+		self._OM=1 #Overflow
+		self._UM=1 #Underflow
+		self._PM=1 #Precision
+		self._X=1	  #Reserved
 		self._M=0 #Interrupt Mask
-		self._PC = [0, 0] #Precition Control
+		self._PC = [1, 1] #Precition Control
 		self._PC0= self._PC[0] #
 		self._PC1= self._PC[0] #
 		self._RC=[0, 0] #Rounding Control
