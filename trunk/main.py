@@ -49,8 +49,8 @@ def execute_command(commlista):
 		#iset.__getattribute__(comm)(params)
 		#eval(comm)(p1,p2,p3...)
 		exec commline
-		print "uesp", iset.uesp
-		print "res", iset.res
+		#print "uesp", iset.uesp
+		#print "res", iset.res
 	except:
 		#print "No existe la función", comm
 		#print "o los parámetros",params," son incorrectos"
