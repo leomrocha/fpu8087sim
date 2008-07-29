@@ -26,7 +26,10 @@ def F2XM1():
 #pag 123
 def FABS():
 	pila.push(abs(pila.pop()[0]))
-	return pila.getI(pila.head())[0]
+	res = pila.getI(pila.head())[0]
+	if res == 0 :
+		statusX86._ZF=1
+	return res
 # Operaciones de Adición
 """
 Operaciones de adición
@@ -50,7 +53,9 @@ def FADD(st0=0,sti=1):
 		res = a + b
 		#print st0,";", sti
 		pila.setI(pila.head(), res)#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
-		return pila.getI(pila.head())[0]
+		if res == 0 :
+			statusX86._ZF=1
+		return res
 
 #FADDP
 def FADDP(sti=1,st0=0):
@@ -65,6 +70,8 @@ def FADDP(sti=1,st0=0):
 		pila.setI(pila.head()-1,res)	#pila[1]=pila[1]+pila[0]
 		uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 		#status.incTOP() #TODO, revisar si no hay fallo acá
+		if res == 0 :
+			statusX86._ZF=1
 	return uesp
 
 """
@@ -87,6 +94,8 @@ def FSUB(st0=0,sti=1):
 		b = pila.getI(pila.head()-1)[0]
 		res = a - b
 		pila.setI(pila.head(), res)#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
+		if res == 0 :
+			statusX86._ZF=1
 		return pila.getI(pila.head())[0]
 
 def FSUBP(st0=0,sti=1):
@@ -95,7 +104,12 @@ def FSUBP(st0=0,sti=1):
 		print "Error en FSUBP, st0"
 		#raise()
 	else:
-		pila.setI(1,pila.getI(1)[0]- pila.getI(pila.head()-1)[0])	#pila[1]=pila[1]-pila[0]
+		a = pila.getI(pila.head())[0]
+		b = pila.getI(pila.head()-1)[0]
+		res = a - b
+		pila.setI(pila.head(), res)#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
+		if res == 0 :
+			statusX86._ZF=1
 		uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 		#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
@@ -179,7 +193,9 @@ def FCOS():
 		caux[2]=1
 	else:
 		caux[2]=0
-		pila.push(math.cos(pila.pop()[0]))	
+		pila.push(math.cos(pila.pop()[0]))
+		if pila.getI(pila.head())[0] == 0 :
+			statusX86._ZF=1
 	status.setC(caux)
 	return pila.getI(pila.head())[0]
 """
@@ -193,6 +209,8 @@ def FSIN():
 	else:
 		caux[2]=0
 		pila.push(math.sin(pila.pop()[0]))	
+		if pila.getI(pila.head())[0] == 0 :
+			statusX86._ZF=1
 	status.setC(caux)
 	return pila.getI(pila.head())[0]
 
@@ -212,6 +230,8 @@ def FSINCOS():
 		pila.push(math.sin(pila.pop()[0]))	
 		pila.push(math.cos(aux))
 		status.decTOP()
+		if pila.getI(pila.head())[0] == 0 :
+			statusX86._ZF=1
 	status.setC(caux)
 	return pila.getI(pila.head())[0]
 
@@ -223,6 +243,8 @@ D9 FA  FSQRT       Calculates square root of ST(0) and stores the result in
 
 def FSQRT():
 	pila.push(math.sqrt(pila.pop()[0]))
+	if pila.getI(pila.head())[0] == 0 :
+		statusX86._ZF=1
 	return pila.getI(pila.head())[0]
 
 """
@@ -237,8 +259,12 @@ DE F8+i FDIVP ST(i), ST(0) Divide ST(i) by ST(0), store result in ST(i), and pop
 def FDIV (st0,sti):
 	a = pila.getI(pila.head()-sti)[0]
 	b = pila.getI(pila.head())[0]
+	if a == 0:
+		status._ZE = 1
 	res = b / a
 	pila.setI(pila.head(),res)
+	if b == 0:
+		statusX86._ZF=1
 	return pila.getI(pila.head())[0]
 
 def FDIVP (sti,st0):
@@ -314,7 +340,7 @@ def FST(mreal):
 
 def FSTP(mreal):
 	uesp= pila.pop()[0]
-	#status.incTOP() #TODO, revisar si no hay fallo acá
+	status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
 
 #incrementa TOP de status
@@ -341,6 +367,8 @@ def FMUL (st0=0,sti=1):
 	b = pila.getI(pila.head())[0]
 	res = a * b
 	pila.setI(pila.head(),res)
+	if res == 0 :
+		statusX86._ZF=1
 	return pila.getI(pila.head())[0]
 
 def FMULP (st0,sti):
@@ -363,6 +391,8 @@ def FPATAN():
 	pila.setI(1,math.atan(pila.getI(1)[0]/ pila.getI(pila.head())[0]))
 	uesp=pila.pop()[0]
 	status.incTOP() #TODO, revisar si no hay fallo acá
+	if uesp == 0 :
+		statusX86._ZF=1
  	return uesp
 
 """
@@ -377,6 +407,8 @@ def FPTAN():
 		caux[2]=0
 		status.setC(caux)
 		pila.setI(pila.head(),math.tan( pila.getI(pila.head())))
+		if pila.getI(pila.head())[0] == 0 :
+			statusX86._ZF=1
 		FLD1()
 		status.decTOP()
 	else:
@@ -418,7 +450,7 @@ D9 F1  FYL2X       Replace ST(1) with (ST(1) ∗ log2ST(0)) and pop the
 def FYL2X():
 	pila.setI(1,math.log( pila.getI(pila.head()),2))
 	uesp=pila.pop()[0]
-	#status.incTOP() #TODO, ver si está bien esto
+	status.incTOP() #TODO, ver si está bien esto
 	return uesp
 
 """
@@ -429,7 +461,7 @@ D9 F9  FYL2XP1     Replace ST(1) with ST(1) ∗ log2(ST(0) + 1.0) and pop the
 def FYL2X():
 	pila.setI(1,math.log( pila.getI(pila.head()),2)+1)
 	uesp=pila.pop()[0]
-	#status.incTOP() #TODO, ver si está bien esto
+	status.incTOP() #TODO, ver si está bien esto
 	return uesp
 
 #Si es llamado como ejecutable, entonces decir que esto es una librería del set de instrucción de la fpu 8087, mostrar la doc y salir.
