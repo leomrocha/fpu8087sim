@@ -45,8 +45,11 @@ def FADD(st0=0,sti=1):
 		print "Error en FADD, st0"
 		#raise()
 	else:
+		a = pila.getI(pila.head())[0]
+		b = pila.getI(pila.head()-1)[0]
+		res = a + b
 		#print st0,";", sti
-		pila.setI(pila.head(), pila.getI(pila.head())[0]+pila.getI(pila.head()-1)[0])#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
+		pila.setI(pila.head(), res)#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
 		return pila.getI(pila.head())[0]
 
 #FADDP
@@ -56,7 +59,10 @@ def FADDP(sti=1,st0=0):
 		print "Error en FADDP, st0"
 		#raise()
 	else:
-		pila.setI(1,pila.getI(1)[0]+ pila.getI(pila.head())[0])	#pila[1]=pila[1]+pila[0]
+		a = pila.getI(pila.head())[0]
+		b = pila.getI(pila.head()-1)[0]
+		res = a + b
+		pila.setI(pila.head()-1,res)	#pila[1]=pila[1]+pila[0]
 		uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 		#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
@@ -72,14 +78,16 @@ DE E9   FSUBP              Subtract ST(0) from ST(1), store result in ST(1), and
 
 """
 
-def FSUB(st0=0,sti=0):
+def FSUB(st0=0,sti=1):
 	if st0 == sti or (sti != 0 and st0 != 0):
 		print "Error en FSUB, st0"
 		#raise()
 	else:
-		 pila.setI(pila.head(), pila.getI(pila.head())[0]-pila.getI(1)[0])#pila[0] = pila[st0] - pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
+		a = pila.getI(pila.head())[0]
+		b = pila.getI(pila.head()-1)[0]
+		res = a - b
+		pila.setI(pila.head(), res)#pila[0] = pila[st0] + pila[sti] #TODO, OJO, acá puede haber errores cuando cambie el tema a complemento a 2
 		return pila.getI(pila.head())[0]
-
 
 def FSUBP(st0=0,sti=1):
 	uesp = None
@@ -87,7 +95,7 @@ def FSUBP(st0=0,sti=1):
 		print "Error en FSUBP, st0"
 		#raise()
 	else:
-		pila.setI(1,pila.getI(1)[0]- pila.getI(pila.head())[0])	#pila[1]=pila[1]-pila[0]
+		pila.setI(1,pila.getI(1)[0]- pila.getI(pila.head()-1)[0])	#pila[1]=pila[1]-pila[0]
 		uesp = pila.pop()[0] #OJO acá cuando cambie el registro intermedio de pop
 		#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp
@@ -96,7 +104,7 @@ def FSUBP(st0=0,sti=1):
 #Operaciones de Signo
 
 def FCHS():
-	 pila.setI(pila.head(),-1* pila.getI(pila.head())[0])
+	pila.setI(pila.head(),-1* pila.getI(pila.head())[0])
 	return pila.getI(pila.head())[0]
 
 def FNCLEX():
@@ -226,8 +234,11 @@ DE F8+i FDIVP ST(i), ST(0) Divide ST(i) by ST(0), store result in ST(i), and pop
 """
 
 
-def FDIV (sti,st0):
-	pila.setI(i, pila.getI(pila.head()-sti)[0]/ pila.getI(pila.head())[0])
+def FDIV (st0,sti):
+	a = pila.getI(pila.head()-sti)[0]
+	b = pila.getI(pila.head())[0]
+	res = b / a
+	pila.setI(pila.head(),res)
 	return pila.getI(pila.head())[0]
 
 def FDIVP (sti,st0):
@@ -326,11 +337,14 @@ DE /1   FIMUL m16int       Multiply ST(0) by m16int and store result in ST(0)
 """
 
 def FMUL (st0=0,sti=1):
-	pila.setI(pila.head()-sti, pila.getI(pila.head()-sti)[0]* pila.getI(pila.head())[0])
+	a = pila.getI(pila.head()-sti)[0]
+	b = pila.getI(pila.head())[0]
+	res = a * b
+	pila.setI(pila.head(),res)
 	return pila.getI(pila.head())[0]
 
-def FMULP (sti,st0):
-	FMUL(sti,st0)
+def FMULP (st0,sti):
+	FMUL(st0,sti)
 	uesp = pila.pop()[0] #primer pop
 	#status.incTOP() #TODO, revisar si no hay fallo acá
 	return uesp

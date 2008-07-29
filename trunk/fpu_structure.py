@@ -282,10 +282,8 @@ class StatusRegister:
 		else:
 			print "Error de argumentos", args
 
-		_C = c
-
 	def getC(self):
-		return _C
+		return self._C
 
 	def decTOP(self):
 		aux=bin2dec(self._TOP)
