@@ -9,6 +9,8 @@ import math
 uesp = None #ultimo_elemento_sacado_de_pila
 res = None #resultado de la última operación
 
+#hay que poner a res y uesp como global en cada una de las funciones, debo escribir un script que lo haga :P: global uesp,res
+
 pila = Pila()
 control = ControlRegister()
 status = StatusRegister()
