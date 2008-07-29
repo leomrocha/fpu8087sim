@@ -71,11 +71,11 @@ def rebootFPU():
 
 def saveState():
 	uesp_temp = uesp #ultimo_elemento_sacado_de_pila
-	pila_temp = copy.deepcopy(pila)
-	control_temp = copy.deepcopy(control)
-	status_temp = copy.deepcopy(status)
-	pinout_temp = copy.deepcopy(pinout)
-	statusX86_temp = copy.deepcopy(statusX86)
+	pila_temp = copy.copy(pila) #copy.deepcopy(pila)
+	control_temp = copy.copy(pila) #copy.deepcopy(control)
+	status_temp = copy.copy(pila) #copy.deepcopy(status)
+	pinout_temp = copy.copy(pila) #copy.deepcopy(pinout)
+	statusX86_temp = copy.copy(pila) #copy.deepcopy(statusX86)
 
 def cleanState():
 	uesp_temp = None #ultimo_elemento_sacado_de_pila
