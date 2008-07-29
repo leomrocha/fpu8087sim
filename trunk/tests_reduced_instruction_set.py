@@ -161,6 +161,29 @@ class TestFSQRT(unittest.TestCase):
 		#print pila._pst
 		self.assertEqual(pila.getI(pila.head())[0],b)
 
+class TestFSTP(unittest.TestCase):
+	def testFSTP(self):
+		for i in range(8):
+			pila.pop()
+		a = random.randint(-2**6,2**6)
+		b = random.randint(-2**6,2**6)
+		pila.push(b)
+		pila.push(a)
+		self.assertEqual(FSTP(1111),a)
+		self.assertEqual(pila.getI(pila.head())[0],b)
+
+class TestFCOM(unittest.TestCase):
+	def testFCOM(self):
+		for i in range(8):
+			pila.pop()
+		a = [2,1,0]
+		b = [1,2,0]
+		c= [[0,0,0,0],[1,0,0,0],[0,0,0,1],[1,0,1,1]]
+		for i in range(3):
+			pila.push(b[i])
+			pila.push(a[i])
+			FCOM(1)
+			self.assertEqual(status.getC(),c[i])
 
 
 if __name__ == '__main__':

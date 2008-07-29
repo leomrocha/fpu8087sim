@@ -63,5 +63,5 @@ def bin2dec(bin):
 	return dec
 
 def f2bin(num):
-	return num
+	return dec2bin(num*(10000000))
 	

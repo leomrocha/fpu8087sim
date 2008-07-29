@@ -96,6 +96,9 @@ Cada registro tiene correspondencia uno a uno con un registro del data field
 
 class Pila:
 	def __init__(self):
+		self.iniciar()
+
+	def iniciar(self): #iniciar en 0000h
 		self._pst=[] #pila st
 		self._ptag=[] #pila de tags
 
@@ -171,7 +174,10 @@ Control Register (16 bits)
 """
 
 class ControlRegister:
-	def __init__(self):
+	def __init__(self): 
+		self.iniciar()
+
+	def iniciar(self): #iniciar en 037Fh
 		self._IM=0 #invalid operation
 		self._DM=0 #Denormalized Operand
 		self._ZM=0 #Zero Divide
@@ -238,6 +244,9 @@ Status Register (16 bits)
 """
 class StatusRegister:
 	def __init__(self):
+		self.iniciar()
+
+	def iniciar(self): #iniciar en 0000h
 		self._IE=0 #invalid operation
 		self._DE=0 #Denormalized Operand
 		self._ZE=0 #Zero Divide
@@ -320,6 +329,9 @@ Registros necesarios del procesador 8086
 
 class StatusX86:
 	def __init__(self):
+		self.iniciar()
+
+	def iniciar(self): #iniciar en 0000h
 		self._CF=0 
 		self._PF=0 
 		self._AF=0 
