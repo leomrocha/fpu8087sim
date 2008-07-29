@@ -123,7 +123,7 @@ class TestFCOS(unittest.TestCase):
 		#print pila._pst
 		self.assertEqual(pila.getI(pila.head())[0],b)
 
-class TestFIN(unittest.TestCase):
+class TestFSIN(unittest.TestCase):
 	def testFSIN(self):
 		for i in range(8):
 			pila.pop()
