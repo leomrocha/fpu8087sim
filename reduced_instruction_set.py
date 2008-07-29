@@ -7,6 +7,7 @@ import math
 #TODO, faltan agregar las modificaciones que se hacen a las banderas de los diferentes registros
 #TODO, faltan un montón de instrucciones
 uesp = None #ultimo_elemento_sacado_de_pila
+res = None #resultado de la última operación
 
 pila = Pila()
 control = ControlRegister()
@@ -22,7 +23,8 @@ underflow = False
 #pag 121
 def F2XM1():
 	pila.push((2**pila.pop()[0] )-1)
-	return pila.getI(pila.head())[0]
+	res = pila.getI(pila.head())[0]
+	return res
 #pag 123
 def FABS():
 	pila.push(abs(pila.pop()[0]))
@@ -119,7 +121,8 @@ def FSUBP(st0=0,sti=1):
 
 def FCHS():
 	pila.setI(pila.head(),-1* pila.getI(pila.head())[0])
-	return pila.getI(pila.head())[0]
+	res = pila.getI(pila.head())[0]
+	return res
 
 def FNCLEX():
 	#clean flags without checking
@@ -176,6 +179,7 @@ def FCOM(sti):
 def FCOMP(sti):
 	FCOM(sti)
 	uesp = pila.pop()[0]
+	res = uesp
 	status.incTOP() #TODO, revisar si no hay fallo acá
 
 def FCOMPP():
@@ -183,6 +187,7 @@ def FCOMPP():
 	uesp = pila.pop()[0] #primer pop
 	status.incTOP() #TODO, revisar si no hay fallo acá
 	uesp = pila.pop()[0] #segundo pop, necesario
+	res = uesp
 	status.incTOP() #TODO, revisar si no hay fallo acá
 
 #Operaciones sobre st0
@@ -197,7 +202,8 @@ def FCOS():
 		if pila.getI(pila.head())[0] == 0 :
 			statusX86._ZF=1
 	status.setC(caux)
-	return pila.getI(pila.head())[0]
+	res =pila.getI(pila.head())[0]
+	return res
 """
 Opcode Instruction Description
 D9 FE  FSIN        Replace ST(0) with its sine.
@@ -212,7 +218,8 @@ def FSIN():
 		if pila.getI(pila.head())[0] == 0 :
 			statusX86._ZF=1
 	status.setC(caux)
-	return pila.getI(pila.head())[0]
+	res =pila.getI(pila.head())[0]
+	return res
 
 """
 Opcode Instruction Description
@@ -233,7 +240,8 @@ def FSINCOS():
 		if pila.getI(pila.head())[0] == 0 :
 			statusX86._ZF=1
 	status.setC(caux)
-	return pila.getI(pila.head())[0]
+	res =pila.getI(pila.head())[0]
+	return res
 
 """
 Opcode Instruction Description
@@ -245,7 +253,8 @@ def FSQRT():
 	pila.push(math.sqrt(pila.pop()[0]))
 	if pila.getI(pila.head())[0] == 0 :
 		statusX86._ZF=1
-	return pila.getI(pila.head())[0]
+	res =pila.getI(pila.head())[0]
+	return res
 
 """
 Opcode  Instruction        Description
@@ -277,12 +286,14 @@ def FDIVP (sti,st0):
 #Operaciones de liberación de cabeza de pila
 
 def FFREE():
-	 pila.setI(pila.head(),None,[1,1])
+	pila.setI(pila.head(),None,[1,1])
+	res =pila.getI(pila.head())[0]
 
 
 def FLD(num):
 	pila.push(num)
 	status.decTOP()
+	res =pila.getI(pila.head())[0]
 
 """
 Opcode Instruction Description
@@ -296,31 +307,31 @@ D9 EE  FLDZ        Push +0.0 onto the FPU register stack.
 """
 def FLD1():
 	FLD(1.0)
-	status.decTOP()
+	#status.decTOP()
 
 def FLDL2T():
 	FLD(math.log(10,2)) #log en base 2 de 10
-	status.decTOP()
+	#status.decTOP()
 
 def FLDL2E():
 	FLD(math.log(math.e,2))#log en base 2 de e
-	status.decTOP()
+	#status.decTOP()
 
 def FLDPI():
 	FLD(math.pi)
-	status.decTOP()
+	#status.decTOP()
 
 def FLDLG2():
 	FLD(math.log10(2))
-	status.decTOP()
+	#status.decTOP()
 
 def FLDLN2():
 	FLD(math.log(2,math.e))
-	status.decTOP()
+	#status.decTOP()
 
 def FLDZ():
 	FLD(0.0)
-	status.decTOP()
+	#status.decTOP()
 
 """
 Opcode  Instruction  Description
@@ -335,12 +346,14 @@ DD D8+i FSTP ST(i)   Copy ST(0) to ST(i) and pop register stack
 
 def FST(mreal):
 	uesp= pila.getI(pila.head())[0]
+	res =uesp
 	return uesp
 
 
 def FSTP(mreal):
 	uesp= pila.pop()[0]
 	status.incTOP() #TODO, revisar si no hay fallo acá
+	res = uesp
 	return uesp
 
 #incrementa TOP de status
@@ -393,6 +406,7 @@ def FPATAN():
 	status.incTOP() #TODO, revisar si no hay fallo acá
 	if uesp == 0 :
 		statusX86._ZF=1
+	res = uesp
  	return uesp
 
 """
@@ -423,10 +437,11 @@ D9 FC  FRNDINT     Round ST(0) to an integer.
 """
 def FRNDINT():
 	pila.push(int(round(pila.pop()[0])))
-
+	res =pila.getI(pila.head())[0]
 
 def FSCALE():
-	 pila.setI(pila.head(), pila.getI(pila.head())*(2**pila.getI(1)))
+	pila.setI(pila.head(), pila.getI(pila.head())*(2**pila.getI(1)))
+	res =pila.getI(pila.head())[0]
 	#TODO, set flags
 
 
@@ -440,7 +455,7 @@ def FXCH(sti):
 	aux =  pila.getI(pila.head()-sti)
 	pila.setI(pila.head()-sti, pila.getI(pila.head())[0], pila.getI(pila.head())[1])
 	pila.setI(pila.head(),aux[0],aux[1])
-
+	res =pila.getI(pila.head())[0]
 """
 Opcode Instruction Description
 D9 F1  FYL2X       Replace ST(1) with (ST(1) ∗ log2ST(0)) and pop the
@@ -451,6 +466,7 @@ def FYL2X():
 	pila.setI(1,math.log( pila.getI(pila.head()),2))
 	uesp=pila.pop()[0]
 	status.incTOP() #TODO, ver si está bien esto
+	res = uesp
 	return uesp
 
 """
@@ -462,6 +478,7 @@ def FYL2X():
 	pila.setI(1,math.log( pila.getI(pila.head()),2)+1)
 	uesp=pila.pop()[0]
 	status.incTOP() #TODO, ver si está bien esto
+	res = uesp
 	return uesp
 
 #Si es llamado como ejecutable, entonces decir que esto es una librería del set de instrucción de la fpu 8087, mostrar la doc y salir.
