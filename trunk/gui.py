@@ -74,12 +74,10 @@ class FPU_GUI:
 		self.actualizarResultados()
 
 	def deshacer(self, widget):
-		print "Esta función está andando MAL"
-		print "inicio deshacer"
 		main.undo()
 		self.actualizarRegs()
 		self.actualizarPila()
-		print "fin deshacer"
+
 
 
 	def reiniciar(self, widget):
