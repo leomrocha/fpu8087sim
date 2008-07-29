@@ -187,7 +187,7 @@ class ControlRegister:
 		self._OM=0 #Overflow
 		self._UM=0 #Underflow
 		self._PM=0 #Precision
-		self._X='X'	  #Reserved
+		self._X=0	  #Reserved
 		self._M=0 #Interrupt Mask
 		self._PC = [0, 0] #Precition Control
 		self._PC0= self._PC[0] #
@@ -198,7 +198,7 @@ class ControlRegister:
 		self._IC =[0, 0] #Infinity Control (0=projective, 1= affine)
 		self._IC0 =self._IC[0]
 		self._IC1 =self._IC[1]
-		self._XXX=['X','X','X'] #últimos 3 bits reservados
+		self._XXX=[0,0,0] #últimos 3 bits reservados
 
 	def setPC(self, *args):
 		assert 1 <= len(args) <= 2
@@ -241,6 +241,9 @@ class ControlRegister:
 	def getIC(self):
 		return _IC
 
+	def getRegs(self):
+		return [self._IM, self._DM, self._ZM,self._OM,self._UM,	self._PM,self._X,self._M,self._PC[0], self._PC[1],self._RC[0],self._RC[1],self._IC[0],self._IC[1],self._XXX[0],self._XXX[1],self._XXX[2]]
+
 
 """
 Status Register (16 bits)
@@ -256,7 +259,7 @@ class StatusRegister:
 		self._OE=0 #Overflow
 		self._UE=0 #Underflow
 		self._PE=0 #Precision
-		self._X='X'	  #Reserved
+		self._X=0	  #Reserved
 		self._IR=0 #Interrupt Request
 		self._C=[0, 0, 0, 0 ] #Condition Code
 		self._C0=0 #Condition Code
@@ -313,6 +316,8 @@ class StatusRegister:
 			aux+=1
 		self._TOP=dec2bin(aux)
 
+	def getRegs(self):
+		return [self._IE, self._DE, self._ZE, self._OE,	self._UE, self._PE,	self._X, self._IR, self._C[0], self._C[1],	self._C[2], self._TOP[0], self._TOP[1], self._TOP[2],	self._C[3], self._B]
 
 """
 Tag Word (16 bits) #listo
@@ -344,5 +349,8 @@ class StatusX86:
 		self._IF=0 
 		self._DF=0 
 		self._OF=0 
+
+	def getRegs(self):
+		return [self._CF,self._PF,self._AF,self._ZF,self._SF,self._TF,self._IF,self._DF,self._OF ]
 #Si es llamado como ejecutable, entonces decir que esto es una librería que contiene las estructuras básicas de una fpu 8087 (pilas y registros), mostrar la doc y salir.
 
