@@ -31,6 +31,7 @@ def parse(text):
 	return lines
 
 def execute_command(commlista):
+	saveState()
 	comm = commlista[0]
 	params = commlista[1:]
 	#probando una nueva manera de hacer las cosas, con una cadena de texto
@@ -60,6 +61,13 @@ def undo():
 	pinout = copy.deepcopy(pinout_temp)
 	statusX86 = copy.deepcopy(statusX86_temp)
 
+def rebootFPU():
+	uesp.iniciar()
+	pila.iniciar()
+	control.iniciar()
+	status.iniciar()
+	pinout.iniciar()
+	statusX86.iniciar()
 
 def saveState():
 	uesp_temp = uesp #ultimo_elemento_sacado_de_pila
@@ -68,7 +76,6 @@ def saveState():
 	status_temp = copy.deepcopy(status)
 	pinout_temp = copy.deepcopy(pinout)
 	statusX86_temp = copy.deepcopy(statusX86)
-
 
 def cleanState():
 	uesp_temp = None #ultimo_elemento_sacado_de_pila
