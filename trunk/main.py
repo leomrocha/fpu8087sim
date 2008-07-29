@@ -5,6 +5,7 @@
 import copy
 #import instruction_set as iset #modificado por el momento
 import reduced_instruction_set as iset
+from fpu_structure import *
 
 uesp = None #ultimo_elemento_sacado_de_pila
 
@@ -48,6 +49,8 @@ def execute_command(commlista):
 		#iset.__getattribute__(comm)(params)
 		#eval(comm)(p1,p2,p3...)
 		exec commline
+		print "uesp", iset.uesp
+		print "res", iset.res
 	except:
 		#print "No existe la función", comm
 		#print "o los parámetros",params," son incorrectos"
@@ -55,27 +58,28 @@ def execute_command(commlista):
 
 def undo():
 	uesp = uesp_temp #ultimo_elemento_sacado_de_pila
-	pila = copy.deepcopy(pila_temp)
-	control = copy.deepcopy(control_temp)
-	status = copy.deepcopy(status_temp)
-	pinout = copy.deepcopy(pinout_temp)
-	statusX86 = copy.deepcopy(statusX86_temp)
+	iset.pila = copy.copy(pila_temp) #copy.deepcopy(pila_temp)
+	iset.control = copy.copy(control_temp) # copy.deepcopy(control_temp)
+	iset.status = copy.copy(status_temp) #copy.deepcopy(status_temp)
+	iset.pinout = copy.copy(pinout_temp) #copy.deepcopy(pinout_temp)
+	iset.statusX86 = copy.copy(statusX86_temp) #copy.deepcopy(statusX86_temp)
 
 def rebootFPU():
-	uesp.iniciar()
-	pila.iniciar()
-	control.iniciar()
-	status.iniciar()
-	pinout.iniciar()
-	statusX86.iniciar()
+	iset.pila = None
+	iset.pila = Pila()
+	iset.control.iniciar()
+	iset.status.iniciar()
+	iset.pinout.iniciar()
+	iset.statusX86.iniciar()
 
 def saveState():
+	#print "Guarda el estado"
 	uesp_temp = uesp #ultimo_elemento_sacado_de_pila
-	pila_temp = copy.copy(pila) #copy.deepcopy(pila)
-	control_temp = copy.copy(pila) #copy.deepcopy(control)
-	status_temp = copy.copy(pila) #copy.deepcopy(status)
-	pinout_temp = copy.copy(pila) #copy.deepcopy(pinout)
-	statusX86_temp = copy.copy(pila) #copy.deepcopy(statusX86)
+	pila_temp = copy.deepcopy(iset.pila) #copy.copy(iset.pila) #
+	control_temp = copy.deepcopy(iset.control) #copy.copy(iset.control) #
+	status_temp = copy.deepcopy(iset.status) #copy.copy(iset.status) #
+	pinout_temp = copy.deepcopy(iset.pinout)# copy.copy(iset.pinout) #
+	statusX86_temp = copy.deepcopy(iset.statusX86) #copy.copy(iset.statusX86) #
 
 def cleanState():
 	uesp_temp = None #ultimo_elemento_sacado_de_pila
