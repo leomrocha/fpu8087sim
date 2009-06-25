@@ -1,28 +1,31 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "cdecl.h"
-int PRE_CDECL asm_main( void ) POST_CDECL;
+
+int PRE_CDECL _hello_asm( void ) POST_CDECL;
+extern void PRE_CDECL _find_primes( int * a, unsigned n ) POST_CDECL;
  
-// you can initialize stuff in this function
-// it is called when the so is loaded
+//cuando python carga es biblioteca ejecuta _init() automaticamente
+//puede usarse para inicializar variables
 void _init()
 {
     printf("Inicializacion del wrapper\n");
-    asm_();
 }
  
-// you can do final clean-up in this function
-// it is called when the so is getting unloaded
+//idem _init pero al terminar el programa 
 void _fini()
 {
     printf("saliendo del wrapper\n");
    
 }
  
+//simple suma de dos enteros
 int add(int a, int b)
 {
     return(a+b);
 }
- 
+
+//recibe un puntero de enteros 
 int sum_values(int *values, int n_values)
 {
     int i;
@@ -32,16 +35,46 @@ int sum_values(int *values, int n_values)
     {
         sum += values[i];
     }
- 
     return sum;
 }
 
+/*hola mundo hecho en ensamblador. 
+Imprime al stdout y retorna 0 */
 
-int asm_()
+int hello_asm()
 {
   int ret_status;
-  ret_status = asm_main();
+  ret_status = _hello_asm();
   return ret_status;
 }
+
+/*busca primos. recibe un parametro desde python 
+e imprime en stdout*/
+int find_primes(unsigned max)
+{
+  int status;
+  unsigned i;
+  int * a;
+
+  a = calloc( sizeof(int), max);
+
+  if ( a ) {
+
+    _find_primes(a,max);
+
+
+    for(i= 0; i < max; i++ )
+      printf("%3d %d\n", i+1, a[i]);   
+      
+    free(a);
+    status = 0;
+  } else {
+    fprintf(stderr, "Can not create array of %u ints\n", max);
+    status = 1;
+  }
+
+  return status;
+}
+
 
 
