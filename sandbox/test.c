@@ -90,20 +90,5 @@ int find_primes(unsigned max)
   return status;
 }
 
-int find_primes2( int * a, unsigned max)
-{
-  int status;
-
-  if ( a ) {
-
-    _find_primes(a,max); /*envia parametro a la funcion en prime2.asm */
-    status = 0;
-  } else {
-    status = 1;
-  }
-
-  return status;
-}
-
 
 
