@@ -3,10 +3,12 @@
 #include "cdecl.h"
 
 int PRE_CDECL _hello_asm( void ) POST_CDECL;
+void PRE_CDECL _sum( int, int * ) POST_CDECL; /* prototype for assembly routine */
+
 extern void PRE_CDECL _find_primes( int * a, unsigned n ) POST_CDECL;
  
 //cuando python carga es biblioteca ejecuta _init() automaticamente
-//puede usarse para inicializar variables
+//puede usarse para inicializar variables u otros procedimientos
 void _init()
 {
     printf("Inicializacion del wrapper\n");
@@ -38,7 +40,7 @@ int sum_values(int *values, int n_values)
     return sum;
 }
 
-/*hola mundo hecho en ensamblador. 
+/*hola mundo hecho en ensamblador. ver hello.asm 
 Imprime al stdout y retorna 0 */
 
 int hello_asm()
@@ -47,6 +49,16 @@ int hello_asm()
   ret_status = _hello_asm();
   return ret_status;
 }
+
+/* sum */
+
+int sum(int n)
+{
+  int result;
+  _sum(n, &result);
+  return result;
+}
+
 
 /*busca primos. recibe un parametro desde python 
 e imprime en stdout*/
@@ -60,7 +72,7 @@ int find_primes(unsigned max)
 
   if ( a ) {
 
-    _find_primes(a,max);
+    _find_primes(a,max); /*envia parametro a la funcion en prime2.asm */
 
 
     for(i= 0; i < max; i++ )

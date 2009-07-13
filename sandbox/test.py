@@ -9,6 +9,12 @@ print libtest.add(10, 20)
 #llamo a hello de asm
 libtest.hello_asm()
  
+
+n = int(raw_input(u'ingrese limite de sumantoria: '))
+print "La sumatoria de 1 a %i es %i" % (n, libtest.sum(c_uint(n)))
+
+
+
 #ahora otra funcion asm, esta vez con un parametro
 max = int(raw_input(u'cuanto primos queres encontrar?'))
 primos = libtest.find_primes(c_uint(max))  #el tipo de datos que espera C es unsigned

@@ -22,8 +22,8 @@ test.o: test.c cdecl.h
 	$(CC) $(CFLAGS) test.c
 
 
-libtest.so.1: test.o hello.o prime2.o
-	$(LD) $(LDFLAGS) libtest.so.1 -o libtest.so.1.0 test.o hello.o prime2.o
+libtest.so.1: test.o hello.o prime2.o sub5.o
+	$(LD) $(LDFLAGS) libtest.so.1 -o libtest.so.1.0 test.o hello.o prime2.o sub5.o
 
 clean :
 	rm *.o
