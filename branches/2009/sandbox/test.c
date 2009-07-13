@@ -61,29 +61,16 @@ int sum(int n)
 }
 
 
-/*busca primos. recibe un parametro desde python 
-e imprime en stdout*/
+/*busca primos y los devuelve en el puntero pasado como parametro*/
 
-int find_primes(unsigned max)
+int find_primes( int * primos, unsigned max)
 {
   int status;
-  unsigned i;
-  int * a;
 
-  a = calloc( sizeof(int), max);
-
-  if ( a ) {
-
-    _find_primes(a,max); /*envia parametro a la funcion en prime2.asm */
-
-
-    for(i= 0; i < max; i++ )
-      printf("%3d %d\n", i+1, a[i]);   
-      
-    free(a);
+  if ( primos ) {
+    _find_primes(primos,max); 
     status = 0;
   } else {
-    fprintf(stderr, "Can not create array of %u ints\n", max);
     status = 1;
   }
 
