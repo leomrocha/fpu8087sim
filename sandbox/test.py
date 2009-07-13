@@ -14,11 +14,13 @@ n = int(raw_input(u'ingrese limite de sumantoria: '))
 print "La sumatoria de 1 a %i es %i" % (n, libtest.sum(c_uint(n)))
 
 
+#devuelve los primeros 'max' primos
+max = int(raw_input(u'cuantos primos queres encontrar?'))
+a = c_int * max
+primes_result = a()
+ok = libtest.find_primes(primes_result,c_uint(max))
+for i in primes_result: print i
 
-#ahora otra funcion asm, esta vez con un parametro
-max = int(raw_input(u'cuanto primos queres encontrar?'))
-primos = libtest.find_primes(c_uint(max))  #el tipo de datos que espera C es unsigned
-print primos
 
  
 # call the sum_values() function
